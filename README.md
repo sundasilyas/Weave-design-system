@@ -1,4 +1,4 @@
-# sundas-design-system
+# Weave-design-system
 
 Design system documentation site in plain HTML, CSS and JavaScript. It has no frameworks and no build step.
 
