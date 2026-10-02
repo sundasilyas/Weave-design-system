@@ -1,0 +1,2160 @@
+/* ==========================================================================
+   docs.css — layout and styling for the documentation site itself
+   --------------------------------------------------------------------------
+   This file styles the "frame" around the components: the sidebar, page
+   headers, section headings, placeholder boxes, overview cards and the
+   foundation swatches. It does NOT style the components themselves —
+   that is components.css.
+
+   Every value comes from tokens.css via var(--token-name).
+
+   Contents
+   1. Base / reset
+   2. Page layout (sidebar + content)
+   2b. Top bar
+   3. Sidebar navigation
+   4. Page header
+   5. Doc sections and placeholders
+   6. Overview card grid
+   7. Foundations (swatches, contrast matrix, type scale, spacing scale)
+   8. Small screens
+   9. Print (the "Download PDF" button)
+   ========================================================================== */
+
+
+/* 1. Base / reset ========================================================== */
+
+/* Make width/height include padding and border — much easier to reason about */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* When jumping to a #section, stop it hiding under the sticky top bar */
+html {
+  scroll-padding-top: var(--layout-topbar-height);
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+}
+
+/* Visible outline when navigating with the keyboard */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-primary);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* "Skip to content" link: hidden until a keyboard user tabs to it */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: var(--layer-skip-link);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+
+/* 2. Page layout =========================================================== */
+
+/* Two columns: fixed-width sidebar on the left, content fills the rest */
+.layout {
+  display: grid;
+  grid-template-columns: var(--layout-sidebar-width) minmax(0, 1fr); /* minmax(0, …) stops wide content (like tables) stretching the page */
+  min-height: calc(var(--layout-full-height) - var(--layout-topbar-height));
+}
+
+/* The main content: centred in the space next to the sidebar, never wider
+   than --layout-content-max-width (plus its padding), so lines of text
+   don't get too long on big screens */
+.content {
+  width: 100%;
+  max-width: calc(var(--layout-content-max-width) + 2 * var(--space-12));
+  margin: 0 auto;
+  /* 64px above the page title (same as the space between sections),
+     48px on the sides and bottom */
+  padding: var(--space-16) var(--space-12) var(--space-12);
+}
+
+
+/* 2b. Top bar ============================================================= */
+
+/* White bar across the top, built by main.js. Three columns: the outer two
+   share the leftover space equally, so the menu sits exactly in the centre. */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--layer-sticky);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--layout-topbar-height);  /* can grow if text is enlarged */
+  padding: 0 var(--space-6);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Left: logo + "Weave" */
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3); /* 12px between logo and name */
+  justify-self: start;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+/* 32 × 32px logo */
+.topbar-logo {
+  flex-shrink: 0;
+  width: var(--space-8);
+  height: var(--space-8);
+}
+
+/* Centre: "Get started" / "Components" */
+.topbar-menu {
+  display: flex;
+  align-self: stretch;  /* full bar height, so the underline sits on the bottom edge */
+  gap: var(--space-8);
+}
+
+.topbar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.topbar-link:hover {
+  color: var(--color-text);
+}
+
+/* The current section: dark text with a 2px dark underline.
+   main.js adds aria-current="true" to the matching link. */
+.topbar-link[aria-current] {
+  color: var(--grey-900);
+  font-weight: var(--font-weight-semibold);
+}
+
+.topbar-link[aria-current]::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--border-width-thick);
+  background: var(--grey-900);
+}
+
+/* Right: the search */
+.topbar-search {
+  position: relative;
+  justify-self: end;
+}
+
+/* Round icon-only buttons (open / close search on phones) */
+.topbar-icon-button {
+  display: none;  /* only shown on phones, see "Small screens" */
+  align-items: center;
+  justify-content: center;
+  width: var(--space-10);
+  height: var(--space-10);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.topbar-icon-button:hover {
+  background: var(--grey-100);
+}
+
+.topbar-icon-button svg {
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+/* Rounded search field with a magnifying glass inside */
+.site-search {
+  position: relative;
+  width: var(--layout-topbar-search-width);
+}
+
+.site-search-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-4);
+  width: var(--space-4);
+  height: var(--space-4);
+  color: var(--color-text-subtle);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.site-search input {
+  width: 100%;
+  min-height: var(--space-10);  /* can grow if text is enlarged */
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-10);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-full);
+  background: var(--grey-100);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-sm);
+}
+
+.site-search input:hover {
+  border-color: var(--color-border-strong);
+}
+
+.site-search input:focus-visible {
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+/* The close button sits inside the field on the right (phones only) */
+.site-search-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Dropdown of matching pages */
+.site-search-results {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  right: 0;
+  left: 0;
+  z-index: var(--layer-dropdown);
+  max-height: var(--layout-search-results-max-height);
+  margin: 0;
+  padding: var(--space-1);
+  overflow-y: auto;
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  list-style: none;
+}
+
+.site-search-results[hidden] {
+  display: none;
+}
+
+/* One result: page name on the left, its group on the right */
+.site-search-option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+/* Hovered, or picked with the arrow keys */
+.site-search-option:hover,
+.site-search-option[aria-selected="true"] {
+  background: var(--grey-100);
+}
+
+.site-search-group {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-xs);
+}
+
+.site-search-empty {
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+
+/* 3. Sidebar navigation ==================================================== */
+
+/* The sidebar stays in place while the page scrolls, and scrolls on its own
+   if the nav is taller than the screen. */
+.sidebar {
+  position: sticky;
+  top: var(--layout-topbar-height);  /* sits just below the top bar */
+  height: calc(var(--layout-full-height) - var(--layout-topbar-height));
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-4) var(--space-10);
+  background: var(--color-surface-muted);  /* no border: the grey background separates it */
+}
+
+/* Each section: "Get started", "Foundations", "Components" */
+.nav-section + .nav-section {
+  margin-top: var(--space-6);
+}
+
+/* Group labels ("Foundations", "Components"): sentence case, regular
+   weight, lighter grey than the menu items below them */
+.nav-heading {
+  margin-bottom: var(--space-1);
+  padding: 0 var(--space-3);
+  color: var(--grey-500);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-link {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  color: var(--grey-800);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--easing-standard);
+}
+
+/* Hover: a subtle grey background */
+.nav-link:hover {
+  background: var(--grey-100);
+  color: var(--color-text);
+}
+
+/* The current page: neutral grey rounded rectangle, dark semi-bold text.
+   (Pink is kept for actions like buttons and links, not for "you are here".)
+   main.js adds aria-current="page" to the matching link. This rule comes
+   after :hover, so the current page keeps its grey when hovered. */
+.nav-link[aria-current="page"] {
+  background: var(--grey-200);
+  color: var(--grey-900);
+  font-weight: var(--font-weight-semibold);
+}
+
+
+/* 4. Page header =========================================================== */
+
+.page-header {
+  margin-bottom: var(--space-16);
+}
+
+/* Page title: H1 style from the type scale */
+.page-header h1 {
+  margin-bottom: var(--space-3);
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-line-height);
+  font-weight: var(--type-h1-weight);
+  letter-spacing: var(--type-h1-letter-spacing);
+}
+
+/* One-line description under the title: Body large style */
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--type-body-large-size);
+  line-height: var(--type-body-large-line-height);
+}
+
+
+/* 5. Doc sections and placeholders ========================================= */
+
+/* 64px between sections */
+.doc-section {
+  margin-bottom: var(--space-16);
+}
+
+/* Section headings: no divider line, 24px space before their content */
+.doc-section h2 {
+  margin-bottom: var(--space-6);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* A section heading with a button on the right, e.g. "Neutrals … Copy CSS" */
+.section-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.doc-section .section-heading h2 {
+  margin: 0;
+}
+
+/* Smaller headings: 16px space before their content.
+   (Not for headings that use a .ds-text-* type style, e.g. in examples.) */
+.doc-section h3:not([class*="ds-text-"]) {
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.doc-section p + p {
+  margin-top: var(--space-3);
+}
+
+/* Intro paragraph that sits above a grid or list */
+.section-intro {
+  margin-bottom: var(--space-6);
+  color: var(--color-text-muted);
+}
+
+/* Small info note, e.g. "Click any colour to copy its hex value." */
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-info-bg);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* A hint inside the page header sits 24px below the intro line */
+.page-header .hint {
+  margin-top: var(--space-6);
+}
+
+.hint-icon {
+  flex-shrink: 0;
+  width: var(--space-4);
+  height: var(--space-4);
+  color: var(--color-info);
+}
+
+/* Dashed box that marks content still to be written */
+.placeholder {
+  padding: var(--space-6);
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+/* Bigger placeholder for live examples */
+.placeholder--example {
+  padding: var(--space-16) var(--space-6);
+}
+
+/* Two columns side by side: "When to use / When not to use", "Do / Don't" */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.split-panel {
+  padding: var(--space-5);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Do / Don't panels get a thick top edge: solid for Do, dashed for Don't */
+.split-panel--do {
+  border-top: var(--border-width-thick) solid var(--color-text);
+}
+
+.split-panel--dont {
+  border-top: var(--border-width-thick) dashed var(--color-border-strong);
+}
+
+.split-panel .placeholder {
+  margin-top: var(--space-3);
+}
+
+
+/* 6. Overview card grid ==================================================== */
+
+/* As many columns as fit, each at least --layout-card-min-width wide */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--layout-card-min-width), 1fr));
+  gap: var(--space-4);
+}
+
+.overview-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* keeps the illustration inside the rounded corners */
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-decoration: none;
+  transition:
+    border-color var(--duration-fast) var(--easing-standard),
+    box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.overview-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+/* The hand-drawn illustration area at the top of each card.
+   js/illustrations.js draws an <svg> inside it. Every card uses the same
+   shape (--layout-card-art-ratio), so all illustrations line up. */
+.overview-card-art {
+  aspect-ratio: var(--layout-card-art-ratio);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  background: var(--pink-50);
+}
+
+.overview-card-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Softer, rounded ends on the sketchy lines */
+.overview-card-art path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Name and one-sentence purpose */
+.overview-card-body {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+}
+
+.overview-card h3 {
+  margin-bottom: var(--space-1);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.overview-card p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+
+/* 7. Foundations =========================================================== */
+
+/* Token name / value captions */
+.token-name {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}
+
+.token-value {
+  display: block;
+  color: var(--color-text-subtle);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}
+
+/* --- Colour swatches ----------------------------------------------------- */
+
+/* Every swatch on the page is the same fixed width (--layout-swatch-width),
+   so rows line up across sections. As many fit per row as there's room for. */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--layout-swatch-width));
+  gap: var(--space-4) var(--space-3);
+}
+
+/* Each swatch is a button, so it can be clicked (or reached by keyboard)
+   to copy its hex code. These lines remove the default button look. */
+.swatch {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* The coloured block */
+.swatch-color {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--space-16);
+  margin-bottom: var(--space-2);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--duration-fast) var(--easing-standard);
+}
+
+.swatch:hover .swatch-color {
+  box-shadow: var(--shadow-md);
+}
+
+/* "Pink 50" */
+.swatch-name {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* "#FDF0F5" */
+.swatch-hex {
+  display: block;
+  color: var(--color-text-subtle);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+}
+
+/* Small tag, e.g. "Primary" or "Main" */
+.tag {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--grey-100);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* On a swatch, the tag sits in the top-left corner of the colour block,
+   on white so it's readable on any colour */
+.swatch-color .tag {
+  position: absolute;
+  top: var(--space-1);
+  left: var(--space-1);
+  background: var(--color-surface);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+}
+
+/* Check icon that appears for a moment after copying.
+   It sits in a white circle so it shows up on any colour. */
+.swatch-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  color: var(--color-text);
+  opacity: 0;
+}
+
+.swatch-check svg {
+  width: var(--space-4);
+  height: var(--space-4);
+}
+
+/* main.js adds .is-copied on click; the animation fades the check in,
+   holds it, then fades it out. main.js removes the class when it ends. */
+.swatch.is-copied .swatch-check {
+  animation: copied var(--duration-feedback) var(--easing-standard);
+}
+
+@keyframes copied {
+  0%   { opacity: 0; }
+  15%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Alert colours: one block per status, two per row (one per row on phones).
+   Each block is exactly 4 swatches wide, so the second block lines up with
+   the 5th swatch column in the sections above. */
+.alert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, min(calc(4 * var(--layout-swatch-width) + 3 * var(--space-3)), 100%));
+  gap: var(--space-8) var(--space-3);
+}
+
+/* "Success", "Warning"… above each group of swatches */
+.alert-colour-title {
+  margin-bottom: var(--space-3);
+}
+
+/* --- Typography page ------------------------------------------------------ */
+
+/* 1. Typeface: big "Aa" next to the character set */
+.typeface-specimen {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-10) var(--space-12);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-muted);
+}
+
+.typeface-aa {
+  font-size: var(--type-specimen-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-none);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.typeface-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.typeface-chars {
+  color: var(--color-text-muted);
+  font-size: var(--type-body-large-size);
+  line-height: var(--type-body-large-line-height);
+  overflow-wrap: anywhere;  /* lets the alphabet wrap on small screens */
+}
+
+/* Links styled as the outline button lose their underline */
+a.button-outline {
+  text-decoration: none;
+}
+
+/* 2. How to use: code with a header bar and a copy button */
+.code-sample {
+  overflow: hidden;
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.code-sample-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+}
+
+.code-sample .code-block {
+  border: 0;
+  border-radius: 0;
+  background: var(--color-surface);
+}
+
+/* Space above the second code sample's intro */
+.code-sample-intro {
+  margin-top: var(--space-6);
+}
+
+/* 3. Font weights: four cards in a row */
+.weight-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.weight-card {
+  padding: var(--space-6);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.weight-sample {
+  margin-bottom: var(--space-4);
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-line-height);
+}
+
+.weight-name {
+  font-weight: var(--font-weight-semibold);
+}
+
+.weight-usage {
+  color: var(--color-text-muted);
+  font-size: var(--type-body-small-size);
+  line-height: var(--type-body-small-line-height);
+}
+
+/* 4. Type scale: one row per style, details on the left, example on the right */
+.type-specimen {
+  display: grid;
+  grid-template-columns: var(--layout-type-meta-width) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+}
+
+.type-specimen-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  color: var(--color-text-subtle);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+}
+
+.type-specimen-name {
+  color: var(--color-text);
+  font-size: var(--type-body-small-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Breakpoint illustration: four screens on a pale pink panel.
+   A centred row with a fixed gap; js/illustrations.js draws the screens,
+   sets each one's width (all at the same scale) and marks the current one
+   with .is-current. */
+.breakpoint-art {
+  display: flex;
+  align-items: flex-start;   /* same-height drawings, so bottoms line up */
+  justify-content: center;
+  gap: var(--space-8);
+  margin-top: var(--space-10);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-lg);
+  background: var(--pink-50);
+}
+
+.breakpoint-figure {
+  flex: none;
+  margin: 0;
+}
+
+.breakpoint-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Softer, rounded ends on the sketchy lines */
+.breakpoint-figure path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Label centred under its own screen (even if it's wider than the screen) */
+.breakpoint-figure figcaption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  white-space: nowrap;
+}
+
+.breakpoint-name {
+  color: var(--color-text-muted);
+  font-size: var(--type-body-small-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--type-body-small-line-height);
+}
+
+.breakpoint-range {
+  color: var(--color-text-subtle);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+}
+
+/* The screen size you're on right now */
+.is-current .breakpoint-name {
+  color: var(--color-text);
+}
+
+/* Numbers line up neatly in columns */
+.type-scale-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 5. Usage: an example article with its spacing shown as blue bands.
+   The right padding leaves room for the "16px" labels. */
+.rhythm {
+  max-width: calc(var(--layout-measure) + var(--space-16));
+  padding-right: var(--space-16);
+}
+
+/* Only the blue bands set the spacing, so remove any default margins */
+.rhythm > * {
+  margin: 0;
+}
+
+.rhythm-gap {
+  position: relative;
+  height: var(--gap);  /* set on each band, e.g. --gap: var(--space-4) */
+  border-top: var(--border-width-thin) dashed var(--color-info-border);
+  border-bottom: var(--border-width-thin) dashed var(--color-info-border);
+  background: var(--color-info-bg);
+}
+
+.rhythm-label {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + var(--space-2));
+  color: var(--color-info);
+  font-family: var(--font-family-mono);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+/* 6. Do / Don't: pairs of example cards side by side */
+.dd-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+/* For examples that need the full width (e.g. line length) */
+.dd-pair--stacked {
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-8);
+}
+
+.dd-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+/* A pair followed by a note: keep the note close to it */
+.dd-pair:has(+ .dd-note) {
+  margin-bottom: 0;
+}
+
+/* Short note under a set of examples */
+.dd-note {
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--type-body-small-size);
+  line-height: var(--type-body-small-line-height);
+}
+
+/* Green "Do" / red "Don't" label */
+.dd-label {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-1);
+  padding: 0 var(--space-2);
+  border: var(--border-width-thin) solid;
+  border-radius: var(--radius-full);
+  font-size: var(--type-label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--type-label-line-height);
+}
+
+.dd-label svg {
+  width: var(--space-3);
+  height: var(--space-3);
+}
+
+.dd-label--do {
+  border-color: var(--color-success-border);
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.dd-label--dont {
+  border-color: var(--color-error-border);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* The example itself */
+.dd-preview {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.dd-card figcaption {
+  color: var(--color-text-muted);
+  font-size: var(--type-body-small-size);
+  line-height: var(--type-body-small-line-height);
+}
+
+.dd-muted {
+  color: var(--color-text-muted);
+}
+
+.dd-caps {
+  text-transform: uppercase;
+}
+
+/* A narrow column, so justified text shows its uneven gaps */
+.dd-narrow {
+  max-width: calc(var(--layout-measure) / 3);
+}
+
+.dd-measure {
+  max-width: var(--layout-measure);
+}
+
+/* --- Typography page: Accessibility examples --------------------------------- */
+
+/* "Resizable text  WCAG 1.4.4" */
+.a11y-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.wcag-ref {
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--grey-100);
+  color: var(--color-text-muted);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+  line-height: var(--type-label-line-height);
+}
+
+/* The slider or toggle above an example */
+.a11y-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  font-size: var(--type-body-small-size);
+  font-weight: var(--font-weight-medium);
+}
+
+.a11y-control input[type="range"] {
+  accent-color: var(--color-primary);  /* it's a control, so it's pink */
+}
+
+.a11y-control output {
+  min-width: var(--space-10);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Toggle button when it's switched on */
+.button-outline[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  color: var(--pink-700);
+}
+
+/* 1. Text that grows with the slider (main.js sets --text-scale) */
+.a11y-scalable {
+  font-size: calc(var(--type-body-size) * var(--text-scale, 1));
+  line-height: calc(var(--type-body-line-height) * var(--text-scale, 1));
+}
+
+/* The deliberately broken examples: a fixed height. Anything that doesn't
+   fit is hidden; the dashed line marks where the box ends. */
+.a11y-fixed {
+  height: var(--layout-example-fixed-height);
+  overflow: hidden;
+  border-bottom: var(--border-width-thin) dashed var(--color-error);
+}
+
+/* 2. Text spacing example */
+.a11y-spacing-text p + p {
+  margin-top: var(--space-2);
+}
+
+/* "Test text spacing" switched on: WCAG 1.4.12 values */
+.is-spaced .a11y-spacing-text p {
+  line-height: var(--a11y-test-line-height);
+  letter-spacing: var(--a11y-test-letter-spacing);
+  word-spacing: var(--a11y-test-word-spacing);
+}
+
+.is-spaced .a11y-spacing-text p + p {
+  margin-top: var(--a11y-test-paragraph-spacing);
+}
+
+/* 4. Contrast ratio + badge under a sample */
+.a11y-ratio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: var(--type-body-small-size);
+}
+
+/* 5. Heading outline diagram */
+.outline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--type-body-small-size);
+}
+
+/* Each level indents a step further (--level is set on each row) */
+.outline-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-left: calc((var(--level) - 1) * var(--space-6));
+}
+
+.outline-tag {
+  min-width: var(--space-8);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  background: var(--grey-100);
+  font-family: var(--font-family-mono);
+  font-size: var(--type-caption-size);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+}
+
+/* The level that was skipped to */
+.outline-tag--error {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* Example links (not real links, so they don't take you anywhere) */
+.a11y-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.a11y-link--colour-only {
+  text-decoration: none;
+}
+
+/* --- Spacing page --------------------------------------------------------- */
+
+/* 1. A 4px grid (pale lines every 4px, darker every 16px) with a card on it */
+.grid-demo {
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(to right, var(--pink-200) var(--border-width-thin), transparent var(--border-width-thin)),
+    linear-gradient(to bottom, var(--pink-200) var(--border-width-thin), transparent var(--border-width-thin)),
+    linear-gradient(to right, var(--pink-50) var(--border-width-thin), transparent var(--border-width-thin)),
+    linear-gradient(to bottom, var(--pink-50) var(--border-width-thin), transparent var(--border-width-thin));
+  background-size:
+    var(--space-4) var(--space-4),
+    var(--space-4) var(--space-4),
+    var(--space-1) var(--space-1),
+    var(--space-1) var(--space-1);
+  outline: var(--border-width-thin) solid var(--color-border);
+  outline-offset: calc(-1 * var(--border-width-thin));
+}
+
+/* Two versions side by side (stacked on phones) */
+.grid-demo-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.grid-demo-figure {
+  margin: 0;
+}
+
+.grid-demo-figure figcaption {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--type-body-small-size);
+  line-height: var(--type-body-small-line-height);
+  text-align: center;
+}
+
+/* Right-hand version: no grid, so the annotations are easy to read */
+.grid-demo--plain {
+  background-image: none;
+  background-color: var(--color-surface-muted);
+}
+
+/* The sample card: every size is a multiple of 4px */
+.grid-demo-card {
+  position: relative;  /* the annotation bands are placed inside it */
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: calc(var(--space-24) * 4);  /* 384px */
+  /* On narrower screens, round the width down to a multiple of 4px so the
+     card still lands on the grid */
+  width: round(down, 100%, var(--space-1));
+  padding: var(--space-4);
+  /* Outline drawn inside the card instead of a border, so the border
+     doesn't add 2px and knock the card off the 4px grid */
+  outline: var(--border-width-thin) solid var(--color-border-strong);
+  outline-offset: calc(-1 * var(--border-width-thin));
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.grid-demo-avatar {
+  flex-shrink: 0;
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--pink-200);
+}
+
+.grid-demo-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);  /* 4px between the title and the description */
+  min-width: 0;
+}
+
+/* No extra paragraph margins here (the section style adds 12px between
+   paragraphs), so the gap above is the only space */
+.grid-demo .grid-demo-text > * {
+  margin: 0;
+}
+
+/* Spacing annotations, drawn by main.js from the card's real measurements.
+   Same look as the Usage example on the Typography page. */
+.spacing-annotation {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width-thin) dashed var(--color-info-border);
+  background: var(--color-info-bg);
+  pointer-events: none;
+}
+
+.spacing-annotation-label {
+  color: var(--color-info);
+  font-family: var(--font-family-mono);
+  font-size: var(--type-caption-size);
+  line-height: var(--line-height-none);
+  white-space: nowrap;
+}
+
+/* Tall, narrow bands: the label runs top to bottom */
+.spacing-annotation--vertical .spacing-annotation-label {
+  writing-mode: vertical-rl;
+}
+
+/* Bands too thin for a label (the 4px gap): the label sits just above,
+   at the right-hand end */
+.spacing-annotation--thin .spacing-annotation-label {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--space-1));
+}
+
+.grid-demo-muted {
+  color: var(--color-text-muted);
+}
+
+.grid-demo-button {
+  padding: var(--space-1) var(--space-3);
+  outline: var(--border-width-thin) solid var(--color-border-strong);
+  outline-offset: calc(-1 * var(--border-width-thin));
+  border-radius: var(--radius-md);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+  line-height: var(--type-label-line-height);
+}
+
+/* 2. Guidelines: value + bar | rule | hand-drawn example */
+.spacing-rules {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacing-rule {
+  display: grid;
+  grid-template-columns: var(--layout-type-meta-width) minmax(0, 1fr) var(--layout-spacing-art-width);
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-6) 0;
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+}
+
+.spacing-rule-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.spacing-rule-px {
+  font-size: var(--type-h4-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--type-h4-line-height);
+}
+
+/* A pink bar exactly as wide as the spacing value */
+.spacing-bar {
+  display: block;
+  min-width: var(--border-width-thick);  /* so --space-0 still shows a sliver */
+  height: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--pink-600);
+}
+
+.spacing-rule-title {
+  font-weight: var(--font-weight-semibold);
+}
+
+.spacing-rule-example {
+  color: var(--color-text-muted);
+  font-size: var(--type-body-small-size);
+  line-height: var(--type-body-small-line-height);
+}
+
+/* Friendly token name, e.g. "Spacing 4" */
+.spacing-rule-tokens {
+  margin-top: var(--space-1);
+  color: var(--color-text-subtle);
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+}
+
+/* Same pale pink box as the Overview card illustrations */
+.spacing-rule-art {
+  aspect-ratio: var(--layout-card-art-ratio);
+  border-radius: var(--radius-md);
+  background: var(--pink-50);
+}
+
+.spacing-rule-art svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.spacing-rule-art path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 3. Token table: the bar column */
+.space-table td:last-child {
+  width: 40%;
+}
+
+/* 4. Do / Don't examples ------------------------------------------------- */
+
+/* Plain grey blocks standing in for content */
+.sp-box {
+  min-height: var(--space-6);
+  border-radius: var(--radius-sm);
+  background: var(--grey-200);
+}
+
+.sp-box--short {
+  width: 60%;
+}
+
+/* A stack of blocks with labelled gaps; room on the right for the labels */
+.sp-stack {
+  padding-right: var(--space-12);
+}
+
+/* Form: labels and inputs */
+.sp-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-label {
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+  line-height: var(--type-label-line-height);
+}
+
+.sp-input {
+  min-height: var(--space-10);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+}
+
+/* Dashed outline: shows exactly where a container starts and ends */
+.sp-outline {
+  border: var(--border-width-thin) dashed var(--color-border-strong);
+}
+
+.sp-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-list--gap {
+  gap: var(--space-4);
+}
+
+/* Don't: a margin on every item, including the last */
+.sp-box--margin {
+  margin-bottom: var(--space-4);
+}
+
+/* Do: padding on the container */
+.sp-padded {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+}
+
+/* Don't: no container padding; each child pushes itself in (except one) */
+.sp-list--stacked {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+}
+
+.sp-box--inset {
+  margin: 0 var(--space-4);
+}
+
+/* Alignment: a dashed centre line shows whether the icon and text line up */
+.sp-align {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--space-16);
+  padding: 0 var(--space-8);  /* leaves the guide line showing on both sides */
+}
+
+.sp-centre-guide {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  border-top: var(--border-width-thin) dashed var(--color-error);
+}
+
+/* Sits on top of the guide line, with a white background so the line
+   doesn't run through the text */
+.sp-align-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-2);
+  background: var(--color-surface);
+}
+
+.sp-align-icon {
+  flex-shrink: 0;
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+/* Don't: line things up by eye with a small nudge instead of alignment */
+.sp-align-row--nudged {
+  align-items: flex-start;
+}
+
+.sp-align-row--nudged .sp-align-icon {
+  margin-top: var(--space-example-nudge);
+}
+
+/* Two cards of the same kind */
+.sp-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.sp-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* Don't: the second card has different padding */
+.sp-card--tight {
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+}
+
+.sp-line {
+  display: block;
+  min-height: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--grey-200);
+}
+
+/* --- Accessibility section ------------------------------------------------ */
+
+/* Smaller headings inside a section, e.g. "Minimum contrast" */
+.subheading {
+  margin-top: var(--space-8);
+}
+
+/* Simple two-column table for the contrast rules */
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.rules-table th,
+.rules-table td {
+  padding: var(--space-3) var(--space-4) var(--space-3) 0;
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  text-align: left;
+}
+
+.rules-table th {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* WCAG level badges: AAA, AA, AA18, DNP */
+.badge {
+  display: inline-block;
+  padding: 0 var(--space-2);
+  border: var(--border-width-thin) solid;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.badge--aaa,
+.badge--aa {
+  border-color: var(--color-success-border);
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge--aa18 {
+  border-color: var(--color-warning-border);
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.badge--dnp {
+  border-color: var(--color-error-border);
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
+
+/* Key explaining the badges */
+.badge-legend {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-sm);
+}
+
+.badge-legend .badge {
+  min-width: var(--space-12);
+  margin-right: var(--space-2);
+  text-align: center;
+}
+
+/* Wide tables scroll sideways inside this box, not the whole page */
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* The contrast matrix */
+.contrast-matrix {
+  border-collapse: collapse;
+  font-size: var(--font-size-xs);
+}
+
+.contrast-matrix th,
+.contrast-matrix td {
+  min-width: var(--layout-matrix-cell-width);
+  padding: var(--space-2);
+  border: var(--border-width-thin) solid var(--color-border);
+  text-align: center;
+  vertical-align: top;
+}
+
+.contrast-matrix thead th {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Row headings stay visible while the matrix scrolls sideways */
+.contrast-matrix tbody th {
+  position: sticky;
+  left: 0;
+  background: var(--color-surface);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.contrast-corner {
+  color: var(--color-text-subtle);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Small dot showing the background colour next to each row heading */
+.contrast-chip {
+  display: inline-block;
+  width: var(--space-3);
+  height: var(--space-3);
+  margin-right: var(--space-2);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  vertical-align: middle;
+}
+
+/* The "Text" sample: background and text colour are set by main.js */
+.contrast-sample {
+  display: block;
+  margin-bottom: var(--space-1);
+  padding: var(--space-2) 0;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.contrast-ratio {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-family-mono);
+}
+
+/* A heading with a button on the right, e.g. "Contrast matrix … Download PDF" */
+.section-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin: var(--space-8) 0 var(--space-3);
+}
+
+.doc-section .section-toolbar h3 {
+  margin: 0;
+}
+
+/* Outlined button with an icon, e.g. "Download PDF" */
+.button-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard);
+}
+
+.button-outline:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-subtle);
+}
+
+/* Smaller version of the outlined button */
+.button-small {
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xs);
+}
+
+/* Copy buttons show "Copy CSS" normally and "Copied" for a moment after
+   clicking (main.js adds .is-copied, then removes it) */
+.copy-idle,
+.copy-done {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.copy-done,
+.is-copied .copy-idle {
+  display: none;
+}
+
+.is-copied .copy-done {
+  display: inline-flex;
+}
+
+.button-outline.is-copied {
+  border-color: var(--color-success-border);
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.button-icon {
+  flex-shrink: 0;
+  width: var(--space-4);
+  height: var(--space-4);
+}
+
+/* --- Icons page ----------------------------------------------------------- */
+
+/* A block of example code */
+.code-block {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+}
+
+/* Search box + "Showing 1,857 icons" */
+.icon-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+/* Search input with a magnifying glass inside it */
+.search-field {
+  position: relative;
+  flex: 1;
+}
+
+.search-field-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--space-3);
+  width: var(--space-4);
+  height: var(--space-4);
+  color: var(--color-text-subtle);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-field input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-10);
+  border: var(--border-width-thin) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--font-size-sm);
+}
+
+.search-field input:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.icon-count {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+/* Grid of icon tiles: as many columns as fit */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--layout-icon-tile-min-width), 1fr));
+  gap: var(--space-2);
+}
+
+/* The loading / error message spans the whole grid */
+.icon-grid > .placeholder {
+  grid-column: 1 / -1;
+}
+
+/* One icon: the icon, its name, and (on hover) two buttons */
+.icon-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-2) var(--space-3);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+/* Tiles hidden by the search (display: flex above would otherwise win) */
+.icon-tile[hidden] {
+  display: none;
+}
+
+.icon-tile:hover,
+.icon-tile:focus-within {
+  border-color: var(--color-border-strong);
+}
+
+.icon-tile-glyph svg {
+  display: block;
+  width: var(--space-6);
+  height: var(--space-6);
+}
+
+/* Long names get "…" instead of breaking the layout */
+.icon-tile-name {
+  width: 100%;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Copy + download buttons: hidden until the tile is hovered or a button
+   inside it has keyboard focus */
+.icon-tile-actions {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  display: flex;
+  gap: var(--space-1);
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--easing-standard);
+}
+
+.icon-tile:hover .icon-tile-actions,
+.icon-tile:focus-within .icon-tile-actions {
+  opacity: 1;
+}
+
+/* Touch screens can't hover, so always show the buttons there */
+@media (hover: none) {
+  .icon-tile-actions {
+    opacity: 1;
+  }
+}
+
+.icon-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.icon-action:hover {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.icon-action svg {
+  width: var(--space-4);
+  height: var(--space-4);
+}
+
+/* After copying, main.js adds .is-copied for a moment:
+   the copy icon is swapped for a check */
+.icon-action .icon-check,
+.icon-action.is-copied .icon-copy {
+  display: none;
+}
+
+.icon-action.is-copied .icon-check {
+  display: block;
+}
+
+.icon-action.is-copied {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+/* Credit line at the bottom of a page */
+.credit {
+  padding-top: var(--space-6);
+  border-top: var(--border-width-thin) solid var(--color-border);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+/* Hidden on screen but still read out by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: var(--border-width-thin);
+  height: var(--border-width-thin);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+
+/* 8. Small screens ========================================================= */
+
+/* Note: CSS does not allow var() inside @media, so this breakpoint (767px)
+   is the one value that has to be written here instead of in tokens.css.
+   On narrow screens the sidebar sits above the content instead of beside it. */
+@media (max-width: 767px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Top bar: logo on the left, search icon on the right, no centre menu */
+  .topbar {
+    grid-template-columns: 1fr auto;
+    padding: 0 var(--space-4);
+  }
+
+  .topbar-menu,
+  .site-search {
+    display: none;
+  }
+
+  .topbar-search-open {
+    display: flex;
+  }
+
+  /* After tapping the search icon: the search fills the whole bar */
+  .topbar.is-search-open {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topbar.is-search-open .topbar-brand,
+  .topbar.is-search-open .topbar-search-open {
+    display: none;
+  }
+
+  .topbar.is-search-open .topbar-search {
+    justify-self: stretch;
+  }
+
+  .topbar.is-search-open .site-search {
+    display: block;
+    width: 100%;
+  }
+
+  .topbar.is-search-open .site-search input {
+    padding-right: var(--space-10);  /* room for the close button */
+  }
+
+  .topbar.is-search-open .site-search-close {
+    display: flex;
+  }
+
+  /* Hide the browser's own clear button; ours does the job */
+  .topbar.is-search-open .site-search input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    max-height: var(--layout-sidebar-max-height-mobile);
+  }
+
+  .content {
+    padding: var(--space-8) var(--space-6) var(--space-6);  /* 32px top, 24px sides and bottom */
+  }
+
+  .split,
+  .grid-demo-pair,
+  .spacing-rule,
+  .typeface-specimen,
+  .type-specimen,
+  .dd-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .typeface-specimen {
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+
+  .weight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Breakpoint illustration: 2 × 2, each screen centred in its column */
+  .breakpoint-art {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    justify-items: center;
+    gap: var(--space-6) var(--space-6);
+    padding: var(--space-6);
+  }
+
+  /* Overview cards: one per row, illustration on the left, text on the
+     right, so the list stays compact on a phone */
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .overview-card {
+    flex-direction: row;
+  }
+
+  .overview-card-art {
+    flex: 0 0 var(--layout-card-art-width-mobile);
+    aspect-ratio: auto;
+    border-right: var(--border-width-thin) solid var(--color-border);
+    border-bottom: 0;
+  }
+
+  .overview-card-body {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+
+/* 9. Print ================================================================= */
+
+/* These rules only apply when a "Download PDF" button is used.
+   main.js adds .is-printing-section to <body> and .is-print-target to the
+   part being saved. Normal printing (Ctrl+P) is not affected. */
+@media print {
+  /* Hide everything except the target, the elements that contain it,
+     and everything inside it */
+  body.is-printing-section *:not(:has(.is-print-target)):not(.is-print-target):not(.is-print-target *) {
+    display: none;
+  }
+
+  /* Remove the sidebar column and page padding so the target fills the page */
+  body.is-printing-section .layout {
+    display: block;
+  }
+
+  body.is-printing-section .content {
+    max-width: none;
+    padding: 0;
+  }
+
+  body.is-printing-section .doc-section {
+    margin: 0;
+  }
+
+  /* Print in landscape. "page: section-landscape" links the target to the
+     @page rule below, so only this printout is landscape. */
+  .is-print-target {
+    page: section-landscape;
+    zoom: var(--print-scale); /* shrink slightly so it fits one page */
+  }
+
+  /* Keep background colours (browsers drop them when printing by default) */
+  .is-print-target,
+  .is-print-target * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* The button isn't useful on paper */
+  .is-print-target [data-print-target] {
+    display: none;
+  }
+
+  .is-print-target .section-toolbar {
+    margin-top: 0;
+  }
+
+  /* Let the matrix use the full page width instead of scrolling */
+  .is-print-target .table-scroll {
+    overflow: visible;
+  }
+
+  .is-print-target .contrast-matrix {
+    width: 100%;
+  }
+
+  .is-print-target .contrast-matrix th,
+  .is-print-target .contrast-matrix td {
+    min-width: 0;
+    padding: var(--space-1);
+  }
+
+  .is-print-target .contrast-matrix tbody th {
+    position: static;
+  }
+
+  /* Tighter spacing so the whole matrix fits on one page */
+  .is-print-target .badge-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+
+  .is-print-target .section-intro {
+    margin-bottom: var(--space-3);
+  }
+
+  .is-print-target .contrast-sample {
+    padding: var(--space-1) 0;
+  }
+
+  /* Ratio and badge side by side instead of stacked */
+  .is-print-target .contrast-ratio {
+    display: inline;
+    margin: 0 var(--space-1) 0 0;
+  }
+
+  /* Don't split a row across two pages */
+  .is-print-target tr {
+    break-inside: avoid;
+  }
+}
+
+@page section-landscape {
+  size: landscape;
+}

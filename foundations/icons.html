@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Icons · Weave</title>
+
+  <!-- Favicons: .ico for older browsers, .svg for modern ones,
+       .png for the icon when saved to an iPhone/iPad home screen -->
+  <link rel="icon" href="../assets/favicon.ico" sizes="48x48">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <!-- Inter, our typeface: weights 400, 500, 600 and 700 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <!-- Styles: tokens first, because the other two files use them -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/docs.css">
+
+  <!-- Builds the sidebar, loads Lucide and the icon grid. "defer" = run after the page has loaded -->
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar: left empty here, js/main.js fills it in on every page -->
+    <nav class="sidebar" id="sidebar" aria-label="Site navigation"></nav>
+
+    <main class="content" id="main">
+
+      <header class="page-header">
+        <h1>Icons</h1>
+        <p class="lead">We use Lucide, an open-source library of simple, consistent line icons.</p>
+      </header>
+
+      <!-- How to use icons -->
+      <section class="doc-section" id="usage">
+        <h2>Using icons</h2>
+        <p class="section-intro">Our icons come from Lucide, an open-source library of clean, consistent line icons. Search below, then copy or download any icon. Browse the full library at <a href="https://lucide.dev/icons/" target="_blank" rel="noopener">lucide.dev<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>      </section>
+
+      <!-- The full library, built by js/main.js -->
+      <section class="doc-section" id="library">
+        <h2>Library</h2>
+        <p class="section-intro">Search by name or keyword. Hover over an icon to copy its SVG code or download it.</p>
+
+        <div class="icon-toolbar">
+          <label class="search-field">
+            <span class="visually-hidden">Search icons</span>
+            <i data-lucide="search" class="search-field-icon" aria-hidden="true"></i>
+            <input type="search" placeholder="Search icons, e.g. arrow, user, settings" autocomplete="off" data-icon-search>
+          </label>
+          <!-- "Showing 1,857 icons". aria-live = read out when it changes -->
+          <p class="icon-count" aria-live="polite" data-icon-count></p>
+        </div>
+
+        <div class="icon-grid" data-icon-gallery>
+          <p class="placeholder">Loading icons…</p>
+        </div>
+      </section>
+
+      <!-- Credit and licence -->
+      <footer class="credit">
+        Icons by <a href="https://lucide.dev">Lucide</a>, used under the
+        <a href="https://lucide.dev/license">ISC licence</a>.
+      </footer>
+
+    </main>
+  </div>
+</body>
+</html>

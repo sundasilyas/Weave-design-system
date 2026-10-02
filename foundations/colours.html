@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colours · Weave</title>
+
+  <!-- Favicons: .ico for older browsers, .svg for modern ones,
+       .png for the icon when saved to an iPhone/iPad home screen -->
+  <link rel="icon" href="../assets/favicon.ico" sizes="48x48">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <!-- Inter, our typeface: weights 400, 500, 600 and 700 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <!-- Styles: tokens first, because the other two files use them -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/docs.css">
+
+  <!-- Builds the sidebar, fills in hex codes, copy-on-click and the contrast
+       matrix. "defer" = run after the page has loaded -->
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar: left empty here, js/main.js fills it in on every page -->
+    <nav class="sidebar" id="sidebar" aria-label="Site navigation"></nav>
+
+    <main class="content" id="main">
+
+      <header class="page-header">
+        <h1>Colours</h1>
+        <p class="lead">Our brand pink, neutral greys, alert colours and data visualisation colours.</p>
+        <!-- Hint: tells people the swatches can be clicked -->
+        <p class="hint">
+          <i data-lucide="info" class="hint-icon" aria-hidden="true"></i>
+          Click any colour to copy its hex value.
+        </p>
+      </header>
+
+
+      <!-- 1. Base colour ===================================================== -->
+      <section class="doc-section" id="base">
+        <div class="section-heading">
+          <h2>Base colour</h2>
+          <!-- Copies this section's colour tokens as CSS (see main.js, section 10) -->
+          <button class="button-outline button-small" type="button" data-copy-css>
+            <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy CSS</span>
+            <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+          </button>
+        </div>
+        <p class="section-intro">Pink is our brand colour. Pink 600 is the primary colour, used for main actions and highlights.</p>
+        <div class="swatch-grid">
+          <button class="swatch" type="button" data-copy-token="--pink-50">
+            <span class="swatch-color" style="background: var(--pink-50)"></span>
+            <span class="swatch-name">Pink 50</span>
+            <span class="swatch-hex" data-token="--pink-50"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-100">
+            <span class="swatch-color" style="background: var(--pink-100)"></span>
+            <span class="swatch-name">Pink 100</span>
+            <span class="swatch-hex" data-token="--pink-100"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-200">
+            <span class="swatch-color" style="background: var(--pink-200)"></span>
+            <span class="swatch-name">Pink 200</span>
+            <span class="swatch-hex" data-token="--pink-200"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-300">
+            <span class="swatch-color" style="background: var(--pink-300)"></span>
+            <span class="swatch-name">Pink 300</span>
+            <span class="swatch-hex" data-token="--pink-300"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-400">
+            <span class="swatch-color" style="background: var(--pink-400)"></span>
+            <span class="swatch-name">Pink 400</span>
+            <span class="swatch-hex" data-token="--pink-400"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-500">
+            <span class="swatch-color" style="background: var(--pink-500)"></span>
+            <span class="swatch-name">Pink 500</span>
+            <span class="swatch-hex" data-token="--pink-500"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-600">
+            <span class="swatch-color" style="background: var(--pink-600)"><span class="tag">Primary</span></span>
+            <span class="swatch-name">Pink 600</span>
+            <span class="swatch-hex" data-token="--pink-600"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-700">
+            <span class="swatch-color" style="background: var(--pink-700)"></span>
+            <span class="swatch-name">Pink 700</span>
+            <span class="swatch-hex" data-token="--pink-700"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-800">
+            <span class="swatch-color" style="background: var(--pink-800)"></span>
+            <span class="swatch-name">Pink 800</span>
+            <span class="swatch-hex" data-token="--pink-800"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--pink-900">
+            <span class="swatch-color" style="background: var(--pink-900)"></span>
+            <span class="swatch-name">Pink 900</span>
+            <span class="swatch-hex" data-token="--pink-900"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. Neutrals ======================================================== -->
+      <section class="doc-section" id="neutrals">
+        <div class="section-heading">
+          <h2>Neutrals</h2>
+          <!-- Copies this section's colour tokens as CSS (see main.js, section 10) -->
+          <button class="button-outline button-small" type="button" data-copy-css>
+            <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy CSS</span>
+            <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+          </button>
+        </div>
+        <p class="section-intro">Greys for text, backgrounds and borders.</p>
+        <div class="swatch-grid">
+          <button class="swatch" type="button" data-copy-token="--grey-0">
+            <span class="swatch-color" style="background: var(--grey-0)"></span>
+            <span class="swatch-name">Grey 0</span>
+            <span class="swatch-hex" data-token="--grey-0"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-50">
+            <span class="swatch-color" style="background: var(--grey-50)"></span>
+            <span class="swatch-name">Grey 50</span>
+            <span class="swatch-hex" data-token="--grey-50"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-100">
+            <span class="swatch-color" style="background: var(--grey-100)"></span>
+            <span class="swatch-name">Grey 100</span>
+            <span class="swatch-hex" data-token="--grey-100"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-200">
+            <span class="swatch-color" style="background: var(--grey-200)"></span>
+            <span class="swatch-name">Grey 200</span>
+            <span class="swatch-hex" data-token="--grey-200"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-300">
+            <span class="swatch-color" style="background: var(--grey-300)"></span>
+            <span class="swatch-name">Grey 300</span>
+            <span class="swatch-hex" data-token="--grey-300"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-400">
+            <span class="swatch-color" style="background: var(--grey-400)"></span>
+            <span class="swatch-name">Grey 400</span>
+            <span class="swatch-hex" data-token="--grey-400"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-500">
+            <span class="swatch-color" style="background: var(--grey-500)"></span>
+            <span class="swatch-name">Grey 500</span>
+            <span class="swatch-hex" data-token="--grey-500"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-600">
+            <span class="swatch-color" style="background: var(--grey-600)"></span>
+            <span class="swatch-name">Grey 600</span>
+            <span class="swatch-hex" data-token="--grey-600"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-700">
+            <span class="swatch-color" style="background: var(--grey-700)"></span>
+            <span class="swatch-name">Grey 700</span>
+            <span class="swatch-hex" data-token="--grey-700"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-800">
+            <span class="swatch-color" style="background: var(--grey-800)"></span>
+            <span class="swatch-name">Grey 800</span>
+            <span class="swatch-hex" data-token="--grey-800"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--grey-900">
+            <span class="swatch-color" style="background: var(--grey-900)"></span>
+            <span class="swatch-name">Grey 900</span>
+            <span class="swatch-hex" data-token="--grey-900"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. Alert colours =================================================== -->
+      <section class="doc-section" id="alerts">
+        <div class="section-heading">
+          <h2>Alert colours</h2>
+          <!-- Copies this section's colour tokens as CSS (see main.js, section 10) -->
+          <button class="button-outline button-small" type="button" data-copy-css>
+            <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy CSS</span>
+            <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+          </button>
+        </div>
+        <p class="section-intro">Use these to show status. Each one has a main colour for text and icons, a light shade for backgrounds and a mid shade for borders.</p>
+        <div class="alert-grid">
+        <div class="alert-colour">
+          <h3 class="alert-colour-title">Success</h3>
+          <!-- Every green shade; 600 is the main colour -->
+          <div class="swatch-grid">
+            <button class="swatch" type="button" data-copy-token="--green-50">
+              <span class="swatch-color" style="background: var(--green-50)"></span>
+              <span class="swatch-name">Green 50</span>
+              <span class="swatch-hex" data-token="--green-50"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--green-200">
+              <span class="swatch-color" style="background: var(--green-200)"></span>
+              <span class="swatch-name">Green 200</span>
+              <span class="swatch-hex" data-token="--green-200"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--green-600">
+              <span class="swatch-color" style="background: var(--green-600)"><span class="tag">Main</span></span>
+              <span class="swatch-name">Green 600</span>
+              <span class="swatch-hex" data-token="--green-600"></span>
+            </button>
+          </div>
+        </div>
+        <div class="alert-colour">
+          <h3 class="alert-colour-title">Warning</h3>
+          <!-- Every amber shade; 600 is the main colour -->
+          <div class="swatch-grid">
+            <button class="swatch" type="button" data-copy-token="--amber-50">
+              <span class="swatch-color" style="background: var(--amber-50)"></span>
+              <span class="swatch-name">Amber 50</span>
+              <span class="swatch-hex" data-token="--amber-50"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--amber-200">
+              <span class="swatch-color" style="background: var(--amber-200)"></span>
+              <span class="swatch-name">Amber 200</span>
+              <span class="swatch-hex" data-token="--amber-200"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--amber-600">
+              <span class="swatch-color" style="background: var(--amber-600)"><span class="tag">Main</span></span>
+              <span class="swatch-name">Amber 600</span>
+              <span class="swatch-hex" data-token="--amber-600"></span>
+            </button>
+          </div>
+        </div>
+        <div class="alert-colour">
+          <h3 class="alert-colour-title">Error</h3>
+          <!-- Every red shade; 600 is the main colour -->
+          <div class="swatch-grid">
+            <button class="swatch" type="button" data-copy-token="--red-50">
+              <span class="swatch-color" style="background: var(--red-50)"></span>
+              <span class="swatch-name">Red 50</span>
+              <span class="swatch-hex" data-token="--red-50"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--red-200">
+              <span class="swatch-color" style="background: var(--red-200)"></span>
+              <span class="swatch-name">Red 200</span>
+              <span class="swatch-hex" data-token="--red-200"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--red-600">
+              <span class="swatch-color" style="background: var(--red-600)"><span class="tag">Main</span></span>
+              <span class="swatch-name">Red 600</span>
+              <span class="swatch-hex" data-token="--red-600"></span>
+            </button>
+          </div>
+        </div>
+        <div class="alert-colour">
+          <h3 class="alert-colour-title">Info</h3>
+          <!-- Every blue shade; 600 is the main colour -->
+          <div class="swatch-grid">
+            <button class="swatch" type="button" data-copy-token="--blue-50">
+              <span class="swatch-color" style="background: var(--blue-50)"></span>
+              <span class="swatch-name">Blue 50</span>
+              <span class="swatch-hex" data-token="--blue-50"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--blue-200">
+              <span class="swatch-color" style="background: var(--blue-200)"></span>
+              <span class="swatch-name">Blue 200</span>
+              <span class="swatch-hex" data-token="--blue-200"></span>
+            </button>
+            <button class="swatch" type="button" data-copy-token="--blue-600">
+              <span class="swatch-color" style="background: var(--blue-600)"><span class="tag">Main</span></span>
+              <span class="swatch-name">Blue 600</span>
+              <span class="swatch-hex" data-token="--blue-600"></span>
+            </button>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <!-- 4. Data visualisation ============================================== -->
+      <section class="doc-section" id="dataviz">
+        <div class="section-heading">
+          <h2>Data visualisation</h2>
+          <!-- Copies this section's colour tokens as CSS (see main.js, section 10) -->
+          <button class="button-outline button-small" type="button" data-copy-css>
+            <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy CSS</span>
+            <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+          </button>
+        </div>
+        <p class="section-intro">Use these colours in this order for charts and graphs: Data 1 for the first series, Data 2 for the second, and so on. Never rely on colour alone. Add labels, patterns or shapes so people can tell the series apart without seeing colour.</p>
+        <div class="swatch-grid">
+          <button class="swatch" type="button" data-copy-token="--dataviz-1">
+            <span class="swatch-color" style="background: var(--dataviz-1)"></span>
+            <span class="swatch-name">Data 1</span>
+            <span class="swatch-hex" data-token="--dataviz-1"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--dataviz-2">
+            <span class="swatch-color" style="background: var(--dataviz-2)"></span>
+            <span class="swatch-name">Data 2</span>
+            <span class="swatch-hex" data-token="--dataviz-2"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--dataviz-3">
+            <span class="swatch-color" style="background: var(--dataviz-3)"></span>
+            <span class="swatch-name">Data 3</span>
+            <span class="swatch-hex" data-token="--dataviz-3"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--dataviz-4">
+            <span class="swatch-color" style="background: var(--dataviz-4)"></span>
+            <span class="swatch-name">Data 4</span>
+            <span class="swatch-hex" data-token="--dataviz-4"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--dataviz-5">
+            <span class="swatch-color" style="background: var(--dataviz-5)"></span>
+            <span class="swatch-name">Data 5</span>
+            <span class="swatch-hex" data-token="--dataviz-5"></span>
+          </button>
+          <button class="swatch" type="button" data-copy-token="--dataviz-6">
+            <span class="swatch-color" style="background: var(--dataviz-6)"></span>
+            <span class="swatch-name">Data 6</span>
+            <span class="swatch-hex" data-token="--dataviz-6"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 5. Accessibility =================================================== -->
+      <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <p>Good contrast lets everyone read our products, not only people with perfect eyesight on a perfect screen. Around 1 in 12 men and 1 in 200 women have a colour-vision deficiency. Many more people read on old or dim screens, in bright sunlight or low light, or with eyesight that changes with age. If we design for enough contrast from the start, the product works for all of them.</p>
+
+        <h3 class="subheading">Minimum contrast</h3>
+        <table class="rules-table">
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">Minimum ratio</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Body text (under 18px)</td><td>4.5:1</td></tr>
+            <tr><td>Large text (18px and up, or 14px bold)</td><td>3:1</td></tr>
+            <tr><td>Icons and meaningful graphics</td><td>3:1</td></tr>
+            <tr><td>Disabled and placeholder text</td><td>Can go lower, but must stay readable</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Everything inside this box is what "Download PDF" saves -->
+        <div class="print-area" id="contrast-matrix">
+
+        <!-- Title on the left, download button on the right -->
+        <div class="section-toolbar">
+          <h3>Contrast matrix</h3>
+          <!-- data-print-target = the id of the box to save as a PDF (see main.js) -->
+          <button class="button-outline" type="button" data-print-target="contrast-matrix" data-print-title="Contrast matrix">
+            <i data-lucide="download" class="button-icon" aria-hidden="true"></i>
+            Download PDF
+          </button>
+        </div>
+
+        <p class="section-intro">Each cell shows text in the column's colour on the row's background. The ratios are worked out from tokens.css, so they update when the colours change.</p>
+        <ul class="badge-legend">
+          <li><span class="badge badge--aaa">AAA</span> 7:1 or more. Passes for all text.</li>
+          <li><span class="badge badge--aa">AA</span> 4.5:1 or more. Passes for all text.</li>
+          <li><span class="badge badge--aa18">AA18</span> 3:1 or more. Large text and icons only.</li>
+          <li><span class="badge badge--dnp">DNP</span> Does not pass. Don't use for text.</li>
+        </ul>
+
+        <!-- The colours in the matrix. Edit this list to change them:
+             data-colour is the token from tokens.css, the text is the label. -->
+        <ul hidden data-contrast-colours>
+          <li data-colour="--grey-0">White</li>
+          <li data-colour="--grey-900">Grey 900</li>
+          <li data-colour="--grey-500">Grey 500</li>
+          <li data-colour="--pink-50">Pink 50</li>
+          <li data-colour="--pink-600">Pink 600</li>
+          <li data-colour="--pink-700">Pink 700</li>
+          <li data-colour="--green-600">Green 600</li>
+          <li data-colour="--amber-600">Amber 600</li>
+          <li data-colour="--red-600">Red 600</li>
+          <li data-colour="--blue-600">Blue 600</li>
+        </ul>
+
+        <!-- js/main.js builds the matrix inside this table -->
+        <div class="table-scroll">
+          <table class="contrast-matrix" data-contrast-matrix></table>
+        </div>
+
+        </div><!-- end of .print-area -->
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

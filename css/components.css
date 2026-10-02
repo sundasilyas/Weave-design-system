@@ -1,0 +1,184 @@
+/* ==========================================================================
+   components.css — styles for the design system components
+   --------------------------------------------------------------------------
+   These are the styles for the real components (Button, Card, Toggle…)
+   that appear in the "Examples" sections of each component page.
+
+   Rules:
+   1. Only use tokens from tokens.css — e.g. var(--space-4), never 16px.
+   2. Prefix every class with "ds-" (design system) so component styles
+      never clash with the documentation site's own styles in docs.css.
+   3. One section per component, in the same alphabetical order as the nav.
+
+   Example of what a component section will look like:
+
+     .ds-button {
+       padding: var(--space-2) var(--space-4);
+       border-radius: var(--radius-md);
+       background: var(--color-primary);
+       color: var(--color-on-primary);
+       font-size: var(--font-size-sm);
+     }
+
+   Components are placeholders for now, so the sections below are empty.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   Typography
+   One class per text style. Sizes and line heights change automatically
+   with screen width (see the responsive type scale in tokens.css).
+   Use them on any element, e.g. <h2 class="ds-text-h1">.
+   ========================================================================== */
+
+/* Display */
+.ds-text-display {
+  font-size: var(--type-display-size);
+  line-height: var(--type-display-line-height);
+  font-weight: var(--type-display-weight);
+  letter-spacing: var(--type-display-letter-spacing);
+}
+
+/* H1 */
+.ds-text-h1 {
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-line-height);
+  font-weight: var(--type-h1-weight);
+  letter-spacing: var(--type-h1-letter-spacing);
+}
+
+/* H2 */
+.ds-text-h2 {
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-line-height);
+  font-weight: var(--type-h2-weight);
+  letter-spacing: var(--type-h2-letter-spacing);
+}
+
+/* H3 */
+.ds-text-h3 {
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-line-height);
+  font-weight: var(--type-h3-weight);
+  letter-spacing: var(--type-h3-letter-spacing);
+}
+
+/* H4 */
+.ds-text-h4 {
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-line-height);
+  font-weight: var(--type-h4-weight);
+  letter-spacing: var(--type-h4-letter-spacing);
+}
+
+/* Subheadline */
+.ds-text-subheadline {
+  font-size: var(--type-subheadline-size);
+  line-height: var(--type-subheadline-line-height);
+  font-weight: var(--type-subheadline-weight);
+  letter-spacing: var(--type-subheadline-letter-spacing);
+}
+
+/* Body large */
+.ds-text-body-large {
+  font-size: var(--type-body-large-size);
+  line-height: var(--type-body-large-line-height);
+  font-weight: var(--type-body-large-weight);
+  letter-spacing: var(--type-body-large-letter-spacing);
+}
+
+/* Body */
+.ds-text-body {
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line-height);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-letter-spacing);
+}
+
+/* Body small */
+.ds-text-body-small {
+  font-size: var(--type-body-small-size);
+  line-height: var(--type-body-small-line-height);
+  font-weight: var(--type-body-small-weight);
+  letter-spacing: var(--type-body-small-letter-spacing);
+}
+
+/* Caption */
+.ds-text-caption {
+  font-size: var(--type-caption-size);
+  line-height: var(--type-caption-line-height);
+  font-weight: var(--type-caption-weight);
+  letter-spacing: var(--type-caption-letter-spacing);
+}
+
+/* Label */
+.ds-text-label {
+  font-size: var(--type-label-size);
+  line-height: var(--type-label-line-height);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-letter-spacing);
+}
+
+
+/* Accordion ---------------------------------------------------------------- */
+
+/* Alert -------------------------------------------------------------------- */
+
+/* Avatar ------------------------------------------------------------------- */
+
+/* Badge -------------------------------------------------------------------- */
+
+/* Breadcrumb --------------------------------------------------------------- */
+
+/* Button ------------------------------------------------------------------- */
+
+/* Card --------------------------------------------------------------------- */
+
+/* Drawer ------------------------------------------------------------------- */
+
+/* Dropdown ----------------------------------------------------------------- */
+
+/* Label -------------------------------------------------------------------- */
+
+/* Link --------------------------------------------------------------------- */
+
+/* Modal -------------------------------------------------------------------- */
+
+/* Pagination --------------------------------------------------------------- */
+
+/* Popover ------------------------------------------------------------------ */
+
+/* Progress bar ------------------------------------------------------------- */
+
+/* Skeleton loader ---------------------------------------------------------- */
+
+/* Spinner ------------------------------------------------------------------ */
+
+/* Table -------------------------------------------------------------------- */
+
+/* Tabs --------------------------------------------------------------------- */
+
+/* Toast -------------------------------------------------------------------- */
+
+/* Toggle ------------------------------------------------------------------- */
+
+/* Tooltip ------------------------------------------------------------------ */
+
+
+/* ==========================================================================
+   Form inputs
+   ========================================================================== */
+
+/* Checkbox ----------------------------------------------------------------- */
+
+/* Date picker -------------------------------------------------------------- */
+
+/* Radio button ------------------------------------------------------------- */
+
+/* Search ------------------------------------------------------------------- */
+
+/* Select ------------------------------------------------------------------- */
+
+/* Text input --------------------------------------------------------------- */
+
+/* Textarea ----------------------------------------------------------------- */

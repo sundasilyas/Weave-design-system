@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Typography · Weave</title>
+
+  <!-- Favicons: .ico for older browsers, .svg for modern ones,
+       .png for the icon when saved to an iPhone/iPad home screen -->
+  <link rel="icon" href="../assets/favicon.ico" sizes="48x48">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <!-- Inter, our typeface: weights 400, 500, 600 and 700 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <!-- Styles: tokens first, because the other two files use them -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/docs.css">
+
+  <!-- Builds the sidebar, the type scale table and the copy buttons. "defer" = run after the page has loaded -->
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar: left empty here, js/main.js fills it in on every page -->
+    <nav class="sidebar" id="sidebar" aria-label="Site navigation"></nav>
+
+    <main class="content" id="main">
+
+      <header class="page-header">
+        <h1>Typography</h1>
+        <p class="lead">One typeface, four weights and a responsive type scale that keeps text clear and consistent on every screen.</p>
+      </header>
+
+      <!-- 1. Typeface ======================================================== -->
+      <section class="doc-section" id="typeface">
+        <h2>Typeface</h2>
+        <p class="section-intro">Our main font is Inter, a clean, highly legible sans serif designed for screens.</p>
+
+        <div class="typeface-specimen">
+          <p class="typeface-aa" aria-hidden="true">Aa</p>
+          <div class="typeface-details">
+            <p class="ds-text-h3">Inter</p>
+            <p class="typeface-chars">
+              ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+              abcdefghijklmnopqrstuvwxyz<br>
+              0123456789 !?&amp;@#%(.,:;)
+            </p>
+            <a class="button-outline" href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener">
+              <i data-lucide="download" class="button-icon" aria-hidden="true"></i>
+              Download Inter<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. How to use ====================================================== -->
+      <section class="doc-section" id="how-to-use">
+        <h2>How to use</h2>
+        <p class="section-intro">Every page loads Inter from Google Fonts in weights 400, 500, 600 and 700. Add this to the &lt;head&gt; of a page:</p>
+
+        <div class="code-sample">
+          <div class="code-sample-header">
+            <span>HTML</span>
+            <button class="button-outline button-small" type="button" data-copy-code>
+              <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy</span>
+              <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+            </button>
+          </div>
+          <pre class="code-block"><code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"&gt;</code></pre>
+        </div>
+
+        <p class="section-intro code-sample-intro">Then set the font in CSS. The other fonts are fallbacks while Inter loads:</p>
+
+        <div class="code-sample">
+          <div class="code-sample-header">
+            <span>CSS</span>
+            <button class="button-outline button-small" type="button" data-copy-code>
+              <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy</span>
+              <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+            </button>
+          </div>
+          <pre class="code-block"><code>font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;</code></pre>
+        </div>
+      </section>
+
+      <!-- 3. Font weights ==================================================== -->
+      <section class="doc-section" id="weights">
+        <h2>Font weights</h2>
+        <p class="section-intro">We use four weights. Each one has a clear job.</p>
+
+        <div class="weight-grid">
+          <div class="weight-card">
+            <p class="weight-sample" style="font-weight: var(--font-weight-regular)">Ag</p>
+            <p class="weight-name">Regular 400</p>
+            <p class="weight-usage">Body text</p>
+          </div>
+          <div class="weight-card">
+            <p class="weight-sample" style="font-weight: var(--font-weight-medium)">Ag</p>
+            <p class="weight-name">Medium 500</p>
+            <p class="weight-usage">Labels, buttons</p>
+          </div>
+          <div class="weight-card">
+            <p class="weight-sample" style="font-weight: var(--font-weight-semibold)">Ag</p>
+            <p class="weight-name">Semibold 600</p>
+            <p class="weight-usage">H3, H4, subheadline</p>
+          </div>
+          <div class="weight-card">
+            <p class="weight-sample" style="font-weight: var(--font-weight-bold)">Ag</p>
+            <p class="weight-name">Bold 700</p>
+            <p class="weight-usage">Display, H1, H2</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Responsive type scale =========================================== -->
+      <section class="doc-section" id="type-scale">
+        <div class="section-heading">
+          <h2>Responsive type scale</h2>
+          <!-- Copies the whole scale, with its media queries (main.js, section 11) -->
+            <button class="button-outline button-small" type="button" data-copy-type-scale>
+              <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy CSS</span>
+              <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+            </button>
+        </div>
+        <p class="section-intro">Larger styles grow on bigger screens. Resize the window to see the sizes change. Letter spacing is -0.02em for Display and H1, -0.01em for H2, and 0 for everything else.</p>
+
+        <div class="type-specimens">
+          <div class="type-specimen" data-type-style="display" data-type-name="Display">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Display</span>
+              <span>Bold 700</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-display-size"></span> / <span data-token="--type-display-line-height"></span></span>
+            </div>
+            <p class="ds-text-display">Design with clarity</p>
+          </div>
+          <div class="type-specimen" data-type-style="h1" data-type-name="H1">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">H1</span>
+              <span>Bold 700</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-h1-size"></span> / <span data-token="--type-h1-line-height"></span></span>
+            </div>
+            <p class="ds-text-h1">Build consistent products</p>
+          </div>
+          <div class="type-specimen" data-type-style="h2" data-type-name="H2">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">H2</span>
+              <span>Bold 700</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-h2-size"></span> / <span data-token="--type-h2-line-height"></span></span>
+            </div>
+            <p class="ds-text-h2">Every detail matters</p>
+          </div>
+          <div class="type-specimen" data-type-style="h3" data-type-name="H3">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">H3</span>
+              <span>Semibold 600</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-h3-size"></span> / <span data-token="--type-h3-line-height"></span></span>
+            </div>
+            <p class="ds-text-h3">Start with the basics</p>
+          </div>
+          <div class="type-specimen" data-type-style="h4" data-type-name="H4">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">H4</span>
+              <span>Semibold 600</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-h4-size"></span> / <span data-token="--type-h4-line-height"></span></span>
+            </div>
+            <p class="ds-text-h4">Keep it simple and clear</p>
+          </div>
+          <div class="type-specimen" data-type-style="subheadline" data-type-name="Subheadline">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Subheadline</span>
+              <span>Semibold 600</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-subheadline-size"></span> / <span data-token="--type-subheadline-line-height"></span></span>
+            </div>
+            <p class="ds-text-subheadline">A short line that introduces the content below it.</p>
+          </div>
+          <div class="type-specimen" data-type-style="body-large" data-type-name="Body large">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Body large</span>
+              <span>Regular 400</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-body-large-size"></span> / <span data-token="--type-body-large-line-height"></span></span>
+            </div>
+            <p class="ds-text-body-large">Body large is for intros and short passages that need a little more presence.</p>
+          </div>
+          <div class="type-specimen" data-type-style="body" data-type-name="Body">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Body</span>
+              <span>Regular 400</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-body-size"></span> / <span data-token="--type-body-line-height"></span></span>
+            </div>
+            <p class="ds-text-body">Body is the default for most text. It stays comfortable to read at length, on any screen.</p>
+          </div>
+          <div class="type-specimen" data-type-style="body-small" data-type-name="Body small">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Body small</span>
+              <span>Regular 400</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-body-small-size"></span> / <span data-token="--type-body-small-line-height"></span></span>
+            </div>
+            <p class="ds-text-body-small">Body small is for supporting text, like the hint under a form field.</p>
+          </div>
+          <div class="type-specimen" data-type-style="caption" data-type-name="Caption">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Caption</span>
+              <span>Regular 400</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-caption-size"></span> / <span data-token="--type-caption-line-height"></span></span>
+            </div>
+            <p class="ds-text-caption">Captions are for image descriptions, timestamps and footnotes.</p>
+          </div>
+          <div class="type-specimen" data-type-style="label" data-type-name="Label">
+            <div class="type-specimen-meta">
+              <span class="type-specimen-name">Label</span>
+              <span>Medium 500</span>
+              <!-- Size / line height for the current screen width (updates on resize) -->
+              <span><span data-token="--type-label-size"></span> / <span data-token="--type-label-line-height"></span></span>
+            </div>
+            <p class="ds-text-label">Labels name form fields, tags and small buttons.</p>
+          </div>
+        </div>
+
+        <!-- Breakpoint illustration: four hand-drawn screens, drawn by
+             js/illustrations.js. The one matching your screen is highlighted. -->
+        <div class="breakpoint-art" data-breakpoint-art></div>
+
+        <h3 class="subheading">Sizes at each breakpoint</h3>
+        <p class="section-intro">Size / line height at each screen width. Built from tokens.css, so it's always up to date.</p>
+        <!-- js/main.js builds this table from the styles above -->
+        <div class="table-scroll">
+          <table class="rules-table type-scale-table" data-type-scale-table></table>
+        </div>
+      </section>
+
+      <!-- 5. Usage: the text rhythm example now lives on the Spacing page -->
+      <section class="doc-section" id="usage">
+        <p>For spacing between headings and paragraphs, see <a href="spacing.html#text-rhythm">Text rhythm on the Spacing page</a>.</p>
+      </section>
+
+      <!-- 6. Do / Don't ====================================================== -->
+      <section class="doc-section" id="do-dont">
+        <h2>Do / Don't</h2>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-h4">Account settings</p>
+              <p class="ds-text-body-small dd-muted">Update your name, email and password.</p>
+            </div>
+            <figcaption>Use Inter for all text.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-h4" style="font-family: var(--font-family-serif-example)">Account settings</p>
+              <p class="ds-text-body-small dd-muted" style="font-family: var(--font-family-mono)">Update your name, email and password.</p>
+            </div>
+            <figcaption>Mix different font families.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body dd-narrow">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Keep body text left-aligned.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body dd-narrow" style="text-align: justify">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Justify text. It creates uneven gaps between words.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair dd-pair--stacked">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body dd-measure">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help. Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Keep lines to 60–75 characters.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help. Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Let text run the full width.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-h4">Notifications</p>
+              <p class="ds-text-body-small">Choose how you hear about new activity.</p>
+              <p class="ds-text-caption dd-muted">Changes save automatically.</p>
+            </div>
+            <figcaption>Use a clear hierarchy, with no more than 3 sizes in a section.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-h2">Notifications</p>
+              <p class="ds-text-subheadline">Choose how you hear</p>
+              <p class="ds-text-body-large">about new activity.</p>
+              <p class="ds-text-body-small">Changes save</p>
+              <p class="ds-text-caption">automatically.</p>
+            </div>
+            <figcaption>Use too many sizes together.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-h4">Your recent orders</p>
+              <p class="ds-text-body-small dd-muted">Track deliveries and download receipts.</p>
+            </div>
+            <figcaption>Use sentence case for headings.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-h4 dd-caps">Your recent orders</p>
+              <p class="ds-text-body-small dd-muted dd-caps">Track deliveries and download receipts.</p>
+            </div>
+            <figcaption>Use all caps for long text.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body-small" style="color: var(--grey-600)">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Keep body text grey-500 or darker.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body-small" style="color: var(--grey-300)">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Use low-contrast text.</figcaption>
+          </figure>
+        </div>
+
+        <!-- Line height: 1.5 for body text vs. too tight -->
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="line-height: var(--type-body-line-height)">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Use a line height of 1.5 for body text.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="line-height: var(--line-height-none)">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            </div>
+            <figcaption>Set lines too tight or too loose.</figcaption>
+          </figure>
+        </div>
+        <p class="dd-note">Headings use a tighter line height of around 1.1 to 1.3, because large text needs less space between lines.</p>
+      </section>
+
+      <!-- 7. Accessibility ===================================================== -->
+      <section class="doc-section" id="accessibility">
+        <h2>Accessibility</h2>
+        <p class="section-intro">Type choices decide whether people can read our products at all. These rules come from the Web Content Accessibility Guidelines (WCAG). Each one has a live example: try the controls.</p>
+
+        <!-- 1. Resizable text -->
+        <h3 class="subheading a11y-heading" id="a11y-resize">Resizable text <span class="wcag-ref">WCAG 1.4.4</span></h3>
+        <p class="section-intro">Many people make text bigger to read it. Text must still work at 200%: nothing cut off and nothing overlapping. So containers grow with their text instead of having a fixed height.</p>
+        <div class="a11y-control">
+          <label for="text-scale">Text size</label>
+          <input type="range" id="text-scale" min="100" max="200" step="10" value="100" data-text-scale-input aria-controls="text-scale-demo">
+          <output for="text-scale" data-text-scale-output>100%</output>
+        </div>
+
+        <div class="dd-pair" id="text-scale-demo">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="a11y-scalable">Your order has shipped. It should arrive on Thursday, and you can track it from your account at any time.</p>
+            </div>
+            <figcaption>Let the card grow with the text. At 200% it wraps neatly.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <!-- Deliberately broken: a fixed height (the dashed line) -->
+              <div class="a11y-fixed">
+                <p class="a11y-scalable">Your order has shipped. It should arrive on Thursday, and you can track it from your account at any time.</p>
+              </div>
+            </div>
+            <figcaption>Give text a fixed height. At 200% the text is cut off.</figcaption>
+          </figure>
+        </div>
+
+        <!-- 2. Text spacing -->
+        <h3 class="subheading a11y-heading" id="a11y-spacing">Text spacing <span class="wcag-ref">WCAG 1.4.12</span></h3>
+        <p class="section-intro">Some people use tools that add space between lines, paragraphs, letters and words. Text must stay readable when they do. Try the toggle: it applies line height 1.5×, paragraph spacing 2×, letter spacing 0.12em and word spacing 0.16em.</p>
+        <div class="a11y-control">
+          <button class="button-outline button-small" type="button" aria-pressed="false" aria-controls="spacing-demo" data-text-spacing-toggle>
+            <i data-lucide="type" class="button-icon" aria-hidden="true"></i> Test text spacing
+          </button>
+        </div>
+
+        <div class="dd-pair" id="spacing-demo">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <div class="a11y-spacing-text">
+                <p>Your order has shipped and is now on its way.</p>
+                <p>Track it at any time from your account page.</p>
+              </div>
+            </div>
+            <figcaption>Let the card expand. The text stays readable.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <!-- Deliberately broken: a fixed height (the dashed line) -->
+              <div class="a11y-fixed a11y-spacing-text">
+                <p>Your order has shipped and is now on its way.</p>
+                <p>Track it at any time from your account page.</p>
+              </div>
+            </div>
+            <figcaption>Fix the card size. Extra spacing pushes text out of view.</figcaption>
+          </figure>
+        </div>
+
+        <!-- 3. Readable text blocks -->
+        <h3 class="subheading a11y-heading" id="a11y-blocks">Readable text blocks <span class="wcag-ref">WCAG 1.4.8</span></h3>
+        <p class="section-intro">Long lines, justified or centred paragraphs and long runs of italics are all harder to read, especially for people with dyslexia or low vision.</p>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body dd-measure">Clear writing helps everyone, including people with dyslexia, low vision or cognitive disabilities. Short lines, steady spacing and left-aligned text give the eye a consistent place to return to at the start of each line, which makes reading faster and less tiring.</p>
+            </div>
+            <figcaption>Keep paragraphs left-aligned and around 70 characters wide.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="text-align: justify">Clear writing helps everyone, including people with dyslexia, low vision or cognitive disabilities. Short lines, steady spacing and left-aligned text give the eye a consistent place to return to at the start of each line, which makes reading faster and less tiring.</p>
+            </div>
+            <figcaption>Justify text across the full width. It leaves uneven gaps between words.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body">Clear writing helps everyone, including people with dyslexia, low vision or cognitive disabilities. Short lines, steady spacing and left-aligned text give the eye a consistent place to return to at the start of each line, which makes reading faster and less tiring.</p>
+            </div>
+            <figcaption>Left-align paragraphs, so every line starts in the same place.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="text-align: center">Clear writing helps everyone, including people with dyslexia, low vision or cognitive disabilities. Short lines, steady spacing and left-aligned text give the eye a consistent place to return to at the start of each line, which makes reading faster and less tiring.</p>
+            </div>
+            <figcaption>Centre long paragraphs. Each line starts somewhere new.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body">Clear writing helps everyone, including people with dyslexia, low vision or cognitive disabilities. Short lines, steady spacing and left-aligned text give the eye a consistent place to return to at the start of each line, which makes reading faster and less tiring.</p>
+            </div>
+            <figcaption>Use regular text for anything longer than a few words.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="font-style: italic">Clear writing helps everyone, including people with dyslexia, low vision or cognitive disabilities. Short lines, steady spacing and left-aligned text give the eye a consistent place to return to at the start of each line, which makes reading faster and less tiring.</p>
+            </div>
+            <figcaption>Set long blocks in italics. The slanted letters are harder to read.</figcaption>
+          </figure>
+        </div>
+
+        <!-- 4. Contrast -->
+        <h3 class="subheading a11y-heading" id="a11y-contrast">Contrast <span class="wcag-ref">WCAG 1.4.3</span></h3>
+        <p class="section-intro">Text needs enough contrast with its background: at least 4.5:1 for body text and 3:1 for large text. The ratios below are worked out from tokens.css.</p>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="color: var(--grey-900)">Your order has shipped. It should arrive on Thursday, and you can track it from your account at any time.</p>
+              <p class="a11y-ratio" data-contrast-text="--grey-900" data-contrast-bg="--grey-0"></p>
+            </div>
+            <figcaption>Use grey-900 on white for body text.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body" style="color: var(--grey-300)">Your order has shipped. It should arrive on Thursday, and you can track it from your account at any time.</p>
+              <p class="a11y-ratio" data-contrast-text="--grey-300" data-contrast-bg="--grey-0"></p>
+            </div>
+            <figcaption>Use pale grey text like grey-300. It fails every contrast level.</figcaption>
+          </figure>
+        </div>
+        <p class="dd-note"><a href="colours.html#accessibility">See every colour pairing in the contrast matrix on the Colours page</a>.</p>
+
+        <!-- 5. Structure -->
+        <h3 class="subheading a11y-heading" id="a11y-structure">Structure <span class="wcag-ref">WCAG 1.3.1 and 1.4.1</span></h3>
+        <p class="section-intro">Screen reader users jump from heading to heading to find their way, so heading levels must go in order without skipping. And links need more than colour to stand out, so people who can't tell colours apart can still find them.</p>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <ul class="outline">
+                <li class="outline-item" style="--level: 1"><span class="outline-tag">H1</span> Page title</li>
+                <li class="outline-item" style="--level: 2"><span class="outline-tag">H2</span> Section</li>
+                <li class="outline-item" style="--level: 3"><span class="outline-tag">H3</span> Subsection</li>
+                <li class="outline-item" style="--level: 2"><span class="outline-tag">H2</span> Section</li>
+              </ul>
+            </div>
+            <figcaption>Use heading levels in order: H1, then H2, then H3.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <ul class="outline">
+                <li class="outline-item" style="--level: 1"><span class="outline-tag">H1</span> Page title</li>
+                <li class="outline-item" style="--level: 4"><span class="outline-tag outline-tag--error">H4</span> Section</li>
+                <li class="outline-item" style="--level: 2"><span class="outline-tag">H2</span> Section</li>
+                <li class="outline-item" style="--level: 3"><span class="outline-tag">H3</span> Subsection</li>
+              </ul>
+            </div>
+            <figcaption>Skip levels, like jumping from H1 to H4 because it looks the right size.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <p class="ds-text-body">Read the <span class="a11y-link">delivery guide</span> before you order.</p>
+            </div>
+            <figcaption>Underline links as well as colouring them.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <p class="ds-text-body">Read the <span class="a11y-link a11y-link--colour-only">delivery guide</span> before you order.</p>
+            </div>
+            <figcaption>Show links with colour alone.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,396 @@
+:root {
+  /* ===== BASE PALETTE ===== */
+
+  /* Pink (brand) */
+  --pink-50:  #FDF0F5;
+  --pink-100: #FBD9E6;
+  --pink-200: #F6B0CB;
+  --pink-300: #EE7FA9;
+  --pink-400: #E04B87;
+  --pink-500: #D02A75;
+  --pink-600: #C8186A;  /* primary: 5.5:1 with white */
+  --pink-700: #A8125A;
+  --pink-800: #860E49;
+  --pink-900: #640A37;
+
+  /* Grey (neutrals) */
+  --grey-0:   #FFFFFF;
+  --grey-50:  #F8F8F9;
+  --grey-100: #F0F0F2;
+  --grey-200: #E2E2E6;
+  --grey-300: #C9C9CF;
+  --grey-400: #A3A3AB;
+  --grey-500: #71717A;  /* lightest grey allowed for text: 4.8:1 */
+  --grey-600: #5C5C66;
+  --grey-700: #45454E;
+  --grey-800: #2E2E35;
+  --grey-900: #18181C;
+
+  /* Alert ramps */
+  --green-50: #EDF8F1;  --green-200: #8FD5AB;  --green-600: #1A7A49;
+  --amber-50: #FFF7E6;  --amber-200: #FBD06A;  --amber-600: #9A6500;
+  --red-50:   #FEF1F0;  --red-200:   #F8A49D;  --red-600:   #B4261B;
+  --blue-50:  #EEF5FD;  --blue-200:  #9FC6F3;  --blue-600:  #1F62B5;
+
+  /* ===== SEMANTIC TOKENS (components use these) ===== */
+
+  /* Primary */
+  --color-primary:         var(--pink-600);
+  --color-primary-hover:   var(--pink-700);
+  --color-primary-pressed: var(--pink-800);
+  --color-primary-subtle:  var(--pink-50);
+  --color-on-primary:      var(--grey-0);
+
+  /* Text */
+  --color-text:        var(--grey-900);
+  --color-text-muted:  var(--grey-600);
+  --color-text-subtle: var(--grey-500);
+
+  /* Surfaces and borders */
+  --color-surface:       var(--grey-0);
+  --color-surface-muted: var(--grey-50);
+  --color-border:        var(--grey-200);
+  --color-border-strong: var(--grey-400);
+
+  /* Alerts: bg / border / text+icon */
+  --color-success-bg: var(--green-50); --color-success-border: var(--green-200); --color-success: var(--green-600);
+  --color-warning-bg: var(--amber-50); --color-warning-border: var(--amber-200); --color-warning: var(--amber-600);
+  --color-error-bg:   var(--red-50);   --color-error-border:   var(--red-200);   --color-error:   var(--red-600);
+  --color-info-bg:    var(--blue-50);  --color-info-border:    var(--blue-200);  --color-info:    var(--blue-600);
+
+  /* Data visualisation (in this order) */
+  --dataviz-1: #C8186A;  /* pink */
+  --dataviz-2: #1F62B5;  /* blue */
+  --dataviz-3: #0E8A8A;  /* teal */
+  --dataviz-4: #C98500;  /* amber */
+  --dataviz-5: #7B3FC4;  /* purple */
+  --dataviz-6: #1A7A49;  /* green */
+
+
+  /* ==========================================================================
+     NON-COLOUR TOKENS
+     Every other file uses these with var(--token-name), never raw values.
+     ========================================================================== */
+
+  /* ===== SPACING: 4px scale =====
+     Every space is a multiple of 4px. The number is the multiplier:
+     --space-2 = 2 × 4 = 8px, --space-4 = 4 × 4 = 16px, and so on.
+     Values are in rem (1rem = 16px at the browser's default text size),
+     so spacing grows along with text when someone enlarges it. */
+  --space-0:  0;
+  --space-1:  0.25rem;  /* 4px */
+  --space-2:  0.5rem;   /* 8px */
+  --space-3:  0.75rem;  /* 12px */
+  --space-4:  1rem;     /* 16px */
+  --space-5:  1.25rem;  /* 20px */
+  --space-6:  1.5rem;   /* 24px */
+  --space-8:  2rem;     /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* Off-scale values, ONLY for the "Don't" examples on the Spacing page.
+     Never use these in the product. */
+  --space-example-off-scale-a: 15px;
+  --space-example-off-scale-b: 22px;
+  --space-example-nudge:       1px;  /* a "by eye" tweak that still leaves the icon off-centre */
+
+  /* ===== TYPOGRAPHY ===== */
+  /* Inter is loaded from Google Fonts in the <head> of every page.
+     The rest are fallbacks while it loads (or if it can't). */
+  --font-family-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+                      "Helvetica Neue", Arial, sans-serif;
+  --font-family-mono: ui-monospace, "SFMono-Regular", Consolas,
+                      "Liberation Mono", monospace;
+  /* Only for "Don't" examples on the Typography page. Never use in the product. */
+  --font-family-serif-example: Georgia, "Times New Roman", serif;
+
+  /* Font sizes. Text sizes and line heights are in rem (1rem = the
+     browser's text size, usually 16px), so text grows when someone
+     makes it bigger in their browser settings. (WCAG 1.4.4) */
+  /* Font sizes */
+  --font-size-xs:  0.75rem;
+  --font-size-sm:  0.875rem;
+  --font-size-md:  1rem;  /* body text */
+  --font-size-lg:  1.25rem;
+  --font-size-xl:  1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+
+  /* Font weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* Line heights (unitless = multiplied by the font size) */
+  --line-height-tight:  1.2;  /* headings */
+  --line-height-normal: 1.5;  /* body text */
+  --line-height-none:   1;    /* line height = font size (big specimens) */
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.02em;  /* Display, H1 */
+  --letter-spacing-snug:  -0.01em;  /* H2 */
+  --letter-spacing-none:   0;       /* everything else */
+  --letter-spacing-wide:   0.06em;  /* small uppercase labels */
+
+  /* Comfortable line length for reading: about 60–75 characters */
+  --layout-measure: 65ch;
+
+  /* ===== TYPE SCALE — responsive =====
+     Every text style has a size, line height, weight and letter spacing.
+     Styles that change with screen size have a value for each breakpoint:
+       -mobile  up to 767px
+       -tablet  768px and up
+       -desktop 1024px and up
+       -xl      1440px and up
+     The media queries at the bottom of this file switch --type-<style>-size
+     and --type-<style>-line-height to the right one. In CSS, always use
+     those two (not the -mobile/-tablet… ones), e.g.
+       font-size: var(--type-h1-size);
+       line-height: var(--type-h1-line-height);
+     Ready-made classes for each style are in components.css (.ds-text-h1…). */
+
+  /* Breakpoints, for reference and for main.js.
+     (CSS can't use var() inside @media, so the media queries below repeat
+     these numbers. Change both together.) */
+  --breakpoint-tablet:  768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-xl:      1440px;
+
+  /* Display: Bold */
+  --type-display-size-mobile:         2.5rem;
+  --type-display-line-height-mobile:  3rem;
+  --type-display-size-tablet:         3rem;
+  --type-display-line-height-tablet:  3.5rem;
+  --type-display-size-desktop:        3.5rem;
+  --type-display-line-height-desktop: 4rem;
+  --type-display-size-xl:             4rem;
+  --type-display-line-height-xl:      4.5rem;
+  --type-display-weight:         var(--font-weight-bold);
+  --type-display-letter-spacing: var(--letter-spacing-tight);
+
+  /* H1: Bold */
+  --type-h1-size-mobile:         2rem;
+  --type-h1-line-height-mobile:  2.5rem;
+  --type-h1-size-tablet:         2.25rem;
+  --type-h1-line-height-tablet:  2.75rem;
+  --type-h1-size-desktop:        2.5rem;
+  --type-h1-line-height-desktop: 3rem;
+  --type-h1-size-xl:             3rem;
+  --type-h1-line-height-xl:      3.5rem;
+  --type-h1-weight:         var(--font-weight-bold);
+  --type-h1-letter-spacing: var(--letter-spacing-tight);
+
+  /* H2: Bold */
+  --type-h2-size-mobile:         1.75rem;
+  --type-h2-line-height-mobile:  2.25rem;
+  --type-h2-size-tablet:         2rem;
+  --type-h2-line-height-tablet:  2.5rem;
+  --type-h2-size-desktop:        2rem;
+  --type-h2-line-height-desktop: 2.5rem;
+  --type-h2-size-xl:             2.25rem;
+  --type-h2-line-height-xl:      2.75rem;
+  --type-h2-weight:         var(--font-weight-bold);
+  --type-h2-letter-spacing: var(--letter-spacing-snug);
+
+  /* H3: Semibold */
+  --type-h3-size-mobile:         1.5rem;
+  --type-h3-line-height-mobile:  2rem;
+  --type-h3-size-tablet:         1.5rem;
+  --type-h3-line-height-tablet:  2rem;
+  --type-h3-size-desktop:        1.75rem;
+  --type-h3-line-height-desktop: 2.25rem;
+  --type-h3-size-xl:             1.75rem;
+  --type-h3-line-height-xl:      2.25rem;
+  --type-h3-weight:         var(--font-weight-semibold);
+  --type-h3-letter-spacing: var(--letter-spacing-none);
+
+  /* H4: Semibold */
+  --type-h4-size-mobile:         1.25rem;
+  --type-h4-line-height-mobile:  1.75rem;
+  --type-h4-size-tablet:         1.25rem;
+  --type-h4-line-height-tablet:  1.75rem;
+  --type-h4-size-desktop:        1.5rem;
+  --type-h4-line-height-desktop: 2rem;
+  --type-h4-size-xl:             1.5rem;
+  --type-h4-line-height-xl:      2rem;
+  --type-h4-weight:         var(--font-weight-semibold);
+  --type-h4-letter-spacing: var(--letter-spacing-none);
+
+  /* Subheadline: Semibold */
+  --type-subheadline-size-mobile:         1.125rem;
+  --type-subheadline-line-height-mobile:  1.75rem;
+  --type-subheadline-size-tablet:         1.125rem;
+  --type-subheadline-line-height-tablet:  1.75rem;
+  --type-subheadline-size-desktop:        1.25rem;
+  --type-subheadline-line-height-desktop: 1.75rem;
+  --type-subheadline-size-xl:             1.25rem;
+  --type-subheadline-line-height-xl:      1.75rem;
+  --type-subheadline-weight:         var(--font-weight-semibold);
+  --type-subheadline-letter-spacing: var(--letter-spacing-none);
+
+  /* The styles below are the same on every screen size */
+
+  /* Body large: Regular */
+  --type-body-large-size:           1.125rem;
+  --type-body-large-line-height:    1.75rem;
+  --type-body-large-weight:         var(--font-weight-regular);
+  --type-body-large-letter-spacing: var(--letter-spacing-none);
+
+  /* Body: Regular */
+  --type-body-size:           1rem;
+  --type-body-line-height:    1.5rem;
+  --type-body-weight:         var(--font-weight-regular);
+  --type-body-letter-spacing: var(--letter-spacing-none);
+
+  /* Body small: Regular */
+  --type-body-small-size:           0.875rem;
+  --type-body-small-line-height:    1.25rem;
+  --type-body-small-weight:         var(--font-weight-regular);
+  --type-body-small-letter-spacing: var(--letter-spacing-none);
+
+  /* Caption: Regular */
+  --type-caption-size:           0.75rem;
+  --type-caption-line-height:    1rem;
+  --type-caption-weight:         var(--font-weight-regular);
+  --type-caption-letter-spacing: var(--letter-spacing-none);
+
+  /* Label: Medium */
+  --type-label-size:           0.75rem;
+  --type-label-line-height:    1rem;
+  --type-label-weight:         var(--font-weight-medium);
+  --type-label-letter-spacing: var(--letter-spacing-none);
+
+  /* Mobile values to start with; the media queries below override them */
+  --type-display-size:            var(--type-display-size-mobile);
+  --type-display-line-height:     var(--type-display-line-height-mobile);
+  --type-h1-size:                 var(--type-h1-size-mobile);
+  --type-h1-line-height:          var(--type-h1-line-height-mobile);
+  --type-h2-size:                 var(--type-h2-size-mobile);
+  --type-h2-line-height:          var(--type-h2-line-height-mobile);
+  --type-h3-size:                 var(--type-h3-size-mobile);
+  --type-h3-line-height:          var(--type-h3-line-height-mobile);
+  --type-h4-size:                 var(--type-h4-size-mobile);
+  --type-h4-line-height:          var(--type-h4-line-height-mobile);
+  --type-subheadline-size:        var(--type-subheadline-size-mobile);
+  --type-subheadline-line-height: var(--type-subheadline-line-height-mobile);
+
+  /* WCAG 1.4.12 text spacing test ("Test text spacing" on the Typography page) */
+  --a11y-test-line-height:       1.5;     /* × font size */
+  --a11y-test-paragraph-spacing: 2em;     /* 2 × font size */
+  --a11y-test-letter-spacing:    0.12em;
+  --a11y-test-word-spacing:      0.16em;
+
+  /* Big "Aa" on the Typography page */
+  --type-specimen-size: 8rem;
+
+  /* ===== SHAPE — corner radius and borders ===== */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;  /* pills and circles */
+
+  --border-width-thin:  1px;
+  --border-width-thick: 2px;
+
+  /* ===== ELEVATION — shadows ===== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* ===== MOTION ===== */
+  --duration-fast:   120ms;
+  --duration-normal: 200ms;
+  --duration-feedback: 1500ms;  /* how long "copied" ticks stay visible */
+  --easing-standard: ease;
+
+  /* ===== FOCUS RING (keyboard users) ===== */
+  --focus-ring-width:  2px;
+  --focus-ring-offset: 2px;
+
+  /* ===== LAYERS — stacking order (higher number = on top) ===== */
+  --layer-sticky:    10;  /* top bar */
+  --layer-dropdown:  20;  /* search results */
+  --layer-skip-link: 30;  /* "Skip to content" link, above everything */
+
+  /* ===== LAYOUT — sizes used by the documentation site itself ===== */
+  --layout-topbar-height:     64px;   /* top bar on every page */
+  --layout-topbar-search-width: 280px;  /* search box in the top bar */
+  --layout-search-results-max-height: 360px;  /* search dropdown, scrolls if taller */
+  --layout-sidebar-width:     264px;
+  --layout-content-max-width: 960px;  /* widest the content gets (not counting page padding) */
+  --layout-card-min-width:    240px;  /* smallest card width in a grid */
+  --layout-swatch-width:      88px;   /* every colour swatch on the Colours page */
+  --layout-matrix-cell-width: 88px;  /* contrast matrix cells */
+  --layout-icon-tile-min-width: 120px;  /* icon grid tiles */
+  --layout-type-meta-width: 200px;
+  --layout-spacing-art-width: 240px;  /* hand-drawn examples on the Spacing page */
+  --layout-example-fixed-height: 72px;  /* the deliberately fixed "Don't" boxes on the Typography page */  /* name/weight/token column in the type scale */
+  --layout-card-art-ratio: 2 / 1;  /* overview card illustrations: width / height */
+  --layout-card-art-width-mobile: 128px;  /* illustration width on phones */
+  --layout-full-height: 100vh;  /* full screen height */
+  --layout-sidebar-max-height-mobile: 50vh;  /* sidebar height on phones */
+  --print-scale: 0.8;  /* "Download PDF": shrink so the matrix fits one page */
+}
+
+
+/* ==========================================================================
+   RESPONSIVE TYPE SCALE: switch to the right size for each screen width.
+   (These numbers must match --breakpoint-* above.)
+   ========================================================================== */
+
+/* Tablet: 768px and up */
+@media (min-width: 768px) {
+  :root {
+    --type-display-size: var(--type-display-size-tablet);
+    --type-display-line-height: var(--type-display-line-height-tablet);
+    --type-h1-size: var(--type-h1-size-tablet);
+    --type-h1-line-height: var(--type-h1-line-height-tablet);
+    --type-h2-size: var(--type-h2-size-tablet);
+    --type-h2-line-height: var(--type-h2-line-height-tablet);
+    --type-h3-size: var(--type-h3-size-tablet);
+    --type-h3-line-height: var(--type-h3-line-height-tablet);
+    --type-h4-size: var(--type-h4-size-tablet);
+    --type-h4-line-height: var(--type-h4-line-height-tablet);
+    --type-subheadline-size: var(--type-subheadline-size-tablet);
+    --type-subheadline-line-height: var(--type-subheadline-line-height-tablet);
+  }
+}
+
+/* Desktop: 1024px and up */
+@media (min-width: 1024px) {
+  :root {
+    --type-display-size: var(--type-display-size-desktop);
+    --type-display-line-height: var(--type-display-line-height-desktop);
+    --type-h1-size: var(--type-h1-size-desktop);
+    --type-h1-line-height: var(--type-h1-line-height-desktop);
+    --type-h2-size: var(--type-h2-size-desktop);
+    --type-h2-line-height: var(--type-h2-line-height-desktop);
+    --type-h3-size: var(--type-h3-size-desktop);
+    --type-h3-line-height: var(--type-h3-line-height-desktop);
+    --type-h4-size: var(--type-h4-size-desktop);
+    --type-h4-line-height: var(--type-h4-line-height-desktop);
+    --type-subheadline-size: var(--type-subheadline-size-desktop);
+    --type-subheadline-line-height: var(--type-subheadline-line-height-desktop);
+  }
+}
+
+/* XL desktop: 1440px and up */
+@media (min-width: 1440px) {
+  :root {
+    --type-display-size: var(--type-display-size-xl);
+    --type-display-line-height: var(--type-display-line-height-xl);
+    --type-h1-size: var(--type-h1-size-xl);
+    --type-h1-line-height: var(--type-h1-line-height-xl);
+    --type-h2-size: var(--type-h2-size-xl);
+    --type-h2-line-height: var(--type-h2-line-height-xl);
+    --type-h3-size: var(--type-h3-size-xl);
+    --type-h3-line-height: var(--type-h3-line-height-xl);
+    --type-h4-size: var(--type-h4-size-xl);
+    --type-h4-line-height: var(--type-h4-line-height-xl);
+    --type-subheadline-size: var(--type-subheadline-size-xl);
+    --type-subheadline-line-height: var(--type-subheadline-line-height-xl);
+  }
+}

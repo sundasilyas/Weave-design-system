@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spacing · Weave</title>
+
+  <!-- Favicons: .ico for older browsers, .svg for modern ones,
+       .png for the icon when saved to an iPhone/iPad home screen -->
+  <link rel="icon" href="../assets/favicon.ico" sizes="48x48">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+
+  <!-- Inter, our typeface: weights 400, 500, 600 and 700 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <!-- Styles: tokens first, because the other two files use them -->
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/docs.css">
+
+  <!-- Builds the sidebar, the token table, the copy button and the drawings. "defer" = run after the page has loaded -->
+  <script src="../js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Sidebar: left empty here, js/main.js fills it in on every page -->
+    <nav class="sidebar" id="sidebar" aria-label="Site navigation"></nav>
+
+    <main class="content" id="main">
+
+      <header class="page-header">
+        <h1>Spacing</h1>
+        <p class="lead">A 4px spacing system that keeps every layout aligned, balanced and consistent.</p>
+      </header>
+
+      <!-- 1. Spacing system ================================================== -->
+      <section class="doc-section" id="system">
+        <h2>Spacing system</h2>
+        <p class="section-intro">Weave uses a 4px spacing system. Every space, padding and gap is a multiple of 4, so layouts line up and feel consistent. Fewer choices means faster decisions and less guesswork.</p>
+
+        <!-- The same card twice: on the 4px grid, and with its spacing shown -->
+        <div class="grid-demo-pair">
+          <figure class="grid-demo-figure">
+            <!-- Every edge of the card lands on a grid line -->
+            <div class="grid-demo">
+            <div class="grid-demo-card">
+              <div class="grid-demo-avatar" aria-hidden="true"></div>
+              <div class="grid-demo-text">
+                <p class="ds-text-label">Project update</p>
+                <p class="ds-text-body-small grid-demo-muted">3 new comments on the homepage design</p>
+              </div>
+              <span class="grid-demo-button">View</span>
+            </div>
+            </div>
+            <figcaption>On the 4px grid</figcaption>
+          </figure>
+          <figure class="grid-demo-figure">
+            <!-- Same card; js/main.js measures it and draws the spacing on top.
+                 aria-hidden because it repeats the card on the left. -->
+            <div class="grid-demo grid-demo--plain">
+            <div class="grid-demo-card" data-annotate-spacing aria-hidden="true">
+              <div class="grid-demo-avatar" aria-hidden="true"></div>
+              <div class="grid-demo-text">
+                <p class="ds-text-label">Project update</p>
+                <p class="ds-text-body-small grid-demo-muted">3 new comments on the homepage design</p>
+              </div>
+              <span class="grid-demo-button">View</span>
+            </div>
+            </div>
+            <figcaption>Spacing values</figcaption>
+          </figure>
+        </div>
+        <p class="dd-note">Each small square is 4px; the darker lines are every 16px. The card's padding (16px), gaps (12px and 4px) and text line heights are all multiples of 4, so every edge lands on a grid line.</p>
+      </section>
+
+      <!-- 2. Standard spacing guidelines ===================================== -->
+      <section class="doc-section" id="guidelines">
+        <h2>Standard spacing guidelines</h2>
+        <p class="section-intro">The closer two things are, the more related they look. Use small spaces inside components and bigger ones as content becomes less related.</p>
+        <div class="spacing-rules">
+        <div class="spacing-rule">
+          <div class="spacing-rule-value">
+            <span class="spacing-rule-px"><span data-token="--space-1"></span></span>
+            <span class="spacing-bar" style="width: var(--space-1)"></span>
+          </div>
+          <div class="spacing-rule-text">
+            <p class="spacing-rule-title">Inside a component</p>
+            <p class="spacing-rule-example">Between an icon and its label.</p>
+            <p class="spacing-rule-tokens">Spacing 1</p>
+          </div>
+          <!-- Hand-drawn example, drawn by js/illustrations.js -->
+          <div class="spacing-rule-art" data-spacing-example="4" aria-hidden="true"></div>
+        </div>
+        <div class="spacing-rule">
+          <div class="spacing-rule-value">
+            <span class="spacing-rule-px"><span data-token="--space-2"></span></span>
+            <span class="spacing-bar" style="width: var(--space-2)"></span>
+          </div>
+          <div class="spacing-rule-text">
+            <p class="spacing-rule-title">Between related elements</p>
+            <p class="spacing-rule-example">Between a label and its input.</p>
+            <p class="spacing-rule-tokens">Spacing 2</p>
+          </div>
+          <!-- Hand-drawn example, drawn by js/illustrations.js -->
+          <div class="spacing-rule-art" data-spacing-example="8" aria-hidden="true"></div>
+        </div>
+        <div class="spacing-rule">
+          <div class="spacing-rule-value">
+            <span class="spacing-rule-px"><span data-token="--space-4"></span></span>
+            <span class="spacing-bar" style="width: var(--space-4)"></span>
+          </div>
+          <div class="spacing-rule-text">
+            <p class="spacing-rule-title">Between unrelated elements</p>
+            <p class="spacing-rule-example">Also the standard padding inside components like cards.</p>
+            <p class="spacing-rule-tokens">Spacing 4</p>
+          </div>
+          <!-- Hand-drawn example, drawn by js/illustrations.js -->
+          <div class="spacing-rule-art" data-spacing-example="16" aria-hidden="true"></div>
+        </div>
+        <div class="spacing-rule">
+          <div class="spacing-rule-value">
+            <span class="spacing-rule-px"><span data-token="--space-6"></span></span>
+            <span class="spacing-bar" style="width: var(--space-6)"></span>
+          </div>
+          <div class="spacing-rule-text">
+            <p class="spacing-rule-title">Between sub-sections</p>
+            <p class="spacing-rule-example">Between groups of content inside a section.</p>
+            <p class="spacing-rule-tokens">Spacing 6</p>
+          </div>
+          <!-- Hand-drawn example, drawn by js/illustrations.js -->
+          <div class="spacing-rule-art" data-spacing-example="24" aria-hidden="true"></div>
+        </div>
+        <div class="spacing-rule">
+          <div class="spacing-rule-value">
+            <span class="spacing-rule-px"><span data-token="--space-8" data-unitless></span>–<span data-token="--space-12"></span></span>
+            <span class="spacing-bar" style="width: var(--space-8)"></span>
+          </div>
+          <div class="spacing-rule-text">
+            <p class="spacing-rule-title">Between sections</p>
+            <p class="spacing-rule-example">Between the sections of a page or panel.</p>
+            <p class="spacing-rule-tokens">Spacing 8 to Spacing 12</p>
+          </div>
+          <!-- Hand-drawn example, drawn by js/illustrations.js -->
+          <div class="spacing-rule-art" data-spacing-example="32" aria-hidden="true"></div>
+        </div>
+        <div class="spacing-rule">
+          <div class="spacing-rule-value">
+            <span class="spacing-rule-px"><span data-token="--space-16"></span>+</span>
+            <span class="spacing-bar" style="width: var(--space-16)"></span>
+          </div>
+          <div class="spacing-rule-text">
+            <p class="spacing-rule-title">Between major page sections</p>
+            <p class="spacing-rule-example">Between big blocks, like a hero and the content below it.</p>
+            <p class="spacing-rule-tokens">Spacing 16 and up</p>
+          </div>
+          <!-- Hand-drawn example, drawn by js/illustrations.js -->
+          <div class="spacing-rule-art" data-spacing-example="64" aria-hidden="true"></div>
+        </div>
+        </div>
+      </section>
+
+      <!-- 3. Design tokens =================================================== -->
+      <section class="doc-section" id="tokens">
+        <div class="section-heading">
+          <h2>Design tokens</h2>
+          <!-- Copies every spacing token as CSS (main.js, section 13) -->
+          <button class="button-outline button-small" type="button" data-copy-space-scale>
+            <span class="copy-idle"><i data-lucide="copy" class="button-icon" aria-hidden="true"></i> Copy CSS</span>
+            <span class="copy-done"><i data-lucide="check" class="button-icon" aria-hidden="true"></i> Copied</span>
+          </button>
+        </div>
+        <p class="section-intro">Each step × 4 = its size in pixels. For example, Spacing 4 = 16px. Based on 1rem = 16px.</p>
+        <!-- js/main.js builds this table from tokens.css -->
+        <div class="table-scroll">
+          <table class="rules-table space-table" data-space-table data-space-steps="0 1 2 3 4 5 6 8 10 12 16 20 24"></table>
+        </div>
+      </section>
+
+      <!-- Text rhythm (moved from the Typography page) ========================= -->
+      <section class="doc-section" id="text-rhythm">
+        <h2>Text rhythm</h2>
+        <p class="section-intro">Space creates rhythm and shows how ideas are grouped: 16px between paragraphs, 24px above an H3 or H4 and 8px below it, and 48px above an H2. Lines stay within 60–75 characters. The blue bands show the spacing.</p>
+
+        <!-- An example article. The .rhythm-gap bands make the spacing visible;
+             in real content this space would come from margins. -->
+        <article class="rhythm">
+          <h3 class="ds-text-h2">Writing for small screens</h3>
+            <div class="rhythm-gap" style="--gap: var(--space-2)" aria-hidden="true"><span class="rhythm-label" data-token="--space-2"></span></div>
+          <p class="ds-text-subheadline">A few habits that make interface text easier to scan, read and act on.</p>
+            <div class="rhythm-gap" style="--gap: var(--space-4)" aria-hidden="true"><span class="rhythm-label" data-token="--space-4"></span></div>
+          <p class="ds-text-body">Good interface text gets people to the right place quickly. It uses plain words, puts the most important information first and leaves out anything that doesn't help.</p>
+            <div class="rhythm-gap" style="--gap: var(--space-4)" aria-hidden="true"><span class="rhythm-label" data-token="--space-4"></span></div>
+          <p class="ds-text-body">People rarely read every word. They scan for the part they need, so short paragraphs and clear headings help them find it.</p>
+            <div class="rhythm-gap" style="--gap: var(--space-6)" aria-hidden="true"><span class="rhythm-label" data-token="--space-6"></span></div>
+          <h4 class="ds-text-h3">Lead with what matters</h4>
+            <div class="rhythm-gap" style="--gap: var(--space-2)" aria-hidden="true"><span class="rhythm-label" data-token="--space-2"></span></div>
+          <p class="ds-text-body">Put the outcome or the action first. "Save your changes before leaving" is clearer than a sentence that builds up to the point.</p>
+            <div class="rhythm-gap" style="--gap: var(--space-4)" aria-hidden="true"><span class="rhythm-label" data-token="--space-4"></span></div>
+          <p class="ds-text-body">If something can go wrong, say what happened and what to do next, in that order.</p>
+            <div class="rhythm-gap" style="--gap: var(--space-6)" aria-hidden="true"><span class="rhythm-label" data-token="--space-6"></span></div>
+          <h5 class="ds-text-h4">Keep labels short</h5>
+            <div class="rhythm-gap" style="--gap: var(--space-2)" aria-hidden="true"><span class="rhythm-label" data-token="--space-2"></span></div>
+          <p class="ds-text-body">Buttons and labels work best as one to three words that describe exactly what happens.</p>
+            <div class="rhythm-gap" style="--gap: var(--space-12)" aria-hidden="true"><span class="rhythm-label" data-token="--space-12"></span></div>
+          <h3 class="ds-text-h2">Test with real people</h3>
+            <div class="rhythm-gap" style="--gap: var(--space-2)" aria-hidden="true"><span class="rhythm-label" data-token="--space-2"></span></div>
+          <p class="ds-text-body">Read your text out loud, then watch someone use it. Wherever they hesitate, the words can probably be simpler.</p>
+        </article>
+      </section>
+
+      <!-- 4. Do / Don't ====================================================== -->
+      <section class="doc-section" id="do-dont">
+        <h2>Do / Don't</h2>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <div class="sp-stack">
+                <div class="sp-box"></div>
+                <div class="rhythm-gap" style="--gap: var(--space-4)" aria-hidden="true"><span class="rhythm-label" data-token="--space-4"></span></div>
+                <div class="sp-box"></div>
+                <div class="rhythm-gap" style="--gap: var(--space-6)" aria-hidden="true"><span class="rhythm-label" data-token="--space-6"></span></div>
+                <div class="sp-box"></div>
+              </div>
+            </div>
+            <figcaption>Use values from the scale, like 16px and 24px.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <div class="sp-stack">
+                <div class="sp-box"></div>
+                <div class="rhythm-gap" style="--gap: var(--space-example-off-scale-a)" aria-hidden="true"><span class="rhythm-label" data-token="--space-example-off-scale-a"></span></div>
+                <div class="sp-box"></div>
+                <div class="rhythm-gap" style="--gap: var(--space-example-off-scale-b)" aria-hidden="true"><span class="rhythm-label" data-token="--space-example-off-scale-b"></span></div>
+                <div class="sp-box"></div>
+              </div>
+            </div>
+            <figcaption>Use random values, like 15px and 22px.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <div class="sp-form">
+                <span class="sp-label">Name</span>
+                <span class="sp-input" style="margin-top: var(--space-2)"></span>
+                <span class="sp-label" style="margin-top: var(--space-6)">Email</span>
+                <span class="sp-input" style="margin-top: var(--space-2)"></span>
+              </div>
+            </div>
+            <figcaption>Keep related items closer than unrelated ones. Each label sits with its own field.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <div class="sp-form">
+                <span class="sp-label">Name</span>
+                <span class="sp-input" style="margin-top: var(--space-4)"></span>
+                <span class="sp-label" style="margin-top: var(--space-4)">Email</span>
+                <span class="sp-input" style="margin-top: var(--space-4)"></span>
+              </div>
+            </div>
+            <figcaption>Space everything equally. It's unclear which label belongs to which field.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <!-- The dashed line is the list's edge -->
+              <div class="sp-outline sp-list sp-list--gap">
+                <div class="sp-box"></div>
+                <div class="sp-box"></div>
+                <div class="sp-box"></div>
+              </div>
+            </div>
+            <figcaption>Use gap between items in a list. The list ends where the last item ends.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <div class="sp-outline sp-list">
+                <div class="sp-box sp-box--margin"></div>
+                <div class="sp-box sp-box--margin"></div>
+                <div class="sp-box sp-box--margin"></div>
+              </div>
+            </div>
+            <figcaption>Add a margin to each item. It leaves extra space after the last one.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <div class="sp-outline sp-padded">
+                <div class="sp-box"></div>
+                <div class="sp-box sp-box--short"></div>
+                <div class="sp-box"></div>
+              </div>
+            </div>
+            <figcaption>Put padding on the container, so every child sits the same distance from the edge.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <div class="sp-outline sp-list--stacked">
+                <div class="sp-box sp-box--inset"></div>
+                <div class="sp-box sp-box--short"></div>
+                <div class="sp-box sp-box--inset"></div>
+              </div>
+            </div>
+            <figcaption>Push content in with margins on each child. Miss one and it hits the edge.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <div class="sp-align">
+                <span class="sp-centre-guide" aria-hidden="true"></span>
+                <span class="sp-align-row">
+                  <i data-lucide="bell" class="sp-align-icon" aria-hidden="true"></i>
+                  <span class="ds-text-body-large">3 new notifications</span>
+                </span>
+              </div>
+            </div>
+            <figcaption>Use alignment to line things up, like centring an icon with its text.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <div class="sp-align">
+                <span class="sp-centre-guide" aria-hidden="true"></span>
+                <span class="sp-align-row sp-align-row--nudged">
+                  <i data-lucide="bell" class="sp-align-icon" aria-hidden="true"></i>
+                  <span class="ds-text-body-large">3 new notifications</span>
+                </span>
+              </div>
+            </div>
+            <figcaption>Nudge elements into place with small spacing tweaks. They end up slightly off.</figcaption>
+          </figure>
+        </div>
+
+        <div class="dd-pair">
+          <figure class="dd-card">
+            <span class="dd-label dd-label--do"><i data-lucide="check" aria-hidden="true"></i> Do</span>
+            <div class="dd-preview">
+              <div class="sp-cards">
+                <div class="sp-card"><span class="ds-text-label">Invoices</span><span class="sp-line"></span></div>
+                <div class="sp-card"><span class="ds-text-label">Payments</span><span class="sp-line"></span></div>
+              </div>
+            </div>
+            <figcaption>Keep spacing the same across similar components.</figcaption>
+          </figure>
+          <figure class="dd-card">
+            <span class="dd-label dd-label--dont"><i data-lucide="x" aria-hidden="true"></i> Don't</span>
+            <div class="dd-preview">
+              <div class="sp-cards">
+                <div class="sp-card"><span class="ds-text-label">Invoices</span><span class="sp-line"></span></div>
+                <div class="sp-card sp-card--tight"><span class="ds-text-label">Payments</span><span class="sp-line"></span></div>
+              </div>
+            </div>
+            <figcaption>Change the padding between two of the same card.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>
